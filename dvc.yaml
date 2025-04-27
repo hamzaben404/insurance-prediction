@@ -1,0 +1,52 @@
+# dvc.yaml (updated with model training stages)
+stages:
+  process_train_data:
+    cmd: python -m src.data.process_data --input data/raw/train.csv --output data/processed/train
+    deps:
+      - data/raw/train.csv
+      - src/data/process_data.py
+      - src/data/load_data.py
+      - src/data/preprocess.py
+      - src/features/build_features.py
+    outs:
+      - data/processed/train/processed_data.csv
+      - data/processed/train/X_train.csv
+      - data/processed/train/X_val.csv
+      - data/processed/train/X_test.csv
+      - data/processed/train/y_train.csv
+      - data/processed/train/y_val.csv
+      - data/processed/train/y_test.csv
+    metrics:
+      - data/processed/train/data_info.json:
+          cache: false
+    
+  process_test_data:
+    cmd: python -m src.data.process_data --input data/raw/test.csv --output data/processed/test --no-splits
+    deps:
+      - data/raw/test.csv
+      - src/data/process_data.py
+      - src/data/load_data.py
+      - src/data/preprocess.py
+      - src/features/build_features.py
+    outs:
+      - data/processed/test/processed_data.csv
+    metrics:
+      - data/processed/test/data_info.json:
+          cache: false
+          
+  train_models:
+    cmd: python -m src.run_training_pipeline --data-dir data/processed/train --output-dir models/comparison
+    deps:
+      - data/processed/train/X_train.csv
+      - data/processed/train/y_train.csv
+      - data/processed/train/X_val.csv
+      - data/processed/train/y_val.csv
+      - src/run_training_pipeline.py
+      - src/models/train_model.py
+      - src/models/model_selection.py
+      - src/models/model_factory.py
+    outs:
+      - models/comparison
+    metrics:
+      - models/comparison/model_comparison.csv:
+          cache: false

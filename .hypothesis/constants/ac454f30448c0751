@@ -1,0 +1,4 @@
+# file: /Users/abdul/Downloads/S4/MlOps/insurance-prediction/src/data/preprocess.py
+# hypothesis_version: 6.131.6
+
+['(?<!^)(?=[A-Z])', '0', '[^a-zA-Z0-9_]', '[£,€$]', '\\s+', '_', '_+', 'age', 'annual_premium', 'days_since_created', 'gender', 'has_driving_license', 'past_accident', 'switch', 'vehicle_age']

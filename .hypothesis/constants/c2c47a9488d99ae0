@@ -1,0 +1,4 @@
+# file: /Users/abdul/Downloads/S4/MlOps/insurance-prediction/src/api/main.py
+# hypothesis_version: 6.131.6
+
+[500, 8000, '*', '/', '/docs', '0.0.0.0', '1.0.0', 'API_PORT', 'X-Process-Time', '__main__', 'detail', 'docs', 'http', 'message', 'src.api.main:app', 'version']

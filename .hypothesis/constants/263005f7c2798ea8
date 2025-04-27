@@ -1,0 +1,4 @@
+# file: /Users/abdul/Downloads/S4/MlOps/insurance-prediction/src/data/validate_data.py
+# hypothesis_version: 6.131.6
+
+[100, ',', 'Age', 'AnnualPremium', 'DaysSinceCreated', 'Female', 'Gender', 'HasDrivingLicense', 'Male', 'No duplicate IDs', 'RegionID', 'SalesChannelID', 'Validating dataset', 'VehicleAge', 'check', 'checks', 'coerce', 'id', 'invalid_values', 'success', '£']

@@ -1,0 +1,17 @@
+# config/environments/production.yaml
+api:
+  host: "0.0.0.0"
+  port: 8000
+  debug: false
+
+model:
+  path: "/app/models/comparison/production/production_model.pkl"
+  version: "latest"
+
+logging:
+  level: "WARNING"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+monitoring:
+  enabled: true
+  interval: 30

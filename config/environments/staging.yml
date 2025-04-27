@@ -1,0 +1,17 @@
+# config/environments/staging.yaml
+api:
+  host: "0.0.0.0"
+  port: 8000
+  debug: true
+
+model:
+  path: "/app/models/comparison/production/production_model.pkl"
+  version: "latest"
+
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+monitoring:
+  enabled: true
+  interval: 60

@@ -1,0 +1,4 @@
+# file: /Users/abdul/Downloads/S4/MlOps/insurance-prediction/src/api/routers/health.py
+# hypothesis_version: 6.131.6
+
+[404, '/', '/health', '/metrics', '/model', 'Not found', 'cpu_percent', 'description', 'disk_percent', 'health', 'healthy', 'loaded', 'memory_percent', 'model_type', 'model_version', 'status', 'timestamp', 'unknown']

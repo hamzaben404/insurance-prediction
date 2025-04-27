@@ -1,0 +1,4 @@
+# file: /Users/abdul/Downloads/S4/MlOps/insurance-prediction/src/api/models/insurance.py
+# hypothesis_version: 6.131.6
+
+['Customer age', 'Model version', 'Prediction results', 'Region identifier', 'Type of model']
