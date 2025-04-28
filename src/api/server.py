@@ -14,8 +14,10 @@ def main():
         "--port", type=int, default=8000, help="Port to run the server on"
     )
     parser.add_argument(
-        "--host", type=str, default="0.0.0.0", # nosec B104
-        help="Host to run the server on"
+        "--host",
+        type=str,
+        default="0.0.0.0",  # nosec B104
+        help="Host to run the server on",
     )
     parser.add_argument(
         "--model-path",

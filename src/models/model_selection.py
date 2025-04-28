@@ -6,10 +6,17 @@ import mlflow
 import numpy as np
 import pandas as pd
 import seaborn as sns
+import joblib
 
-from src.models.mlflow_utils import (log_dataset_info, log_metrics,
-                                     log_model_params, register_model,
-                                     setup_mlflow, start_run)
+
+from src.models.mlflow_utils import (
+    log_dataset_info,
+    log_metrics,
+    log_model_params,
+    register_model,
+    setup_mlflow,
+    start_run,
+)
 from src.models.model_factory import get_available_models
 from src.models.train_model import train_model
 from src.utils.logging import setup_logger
@@ -193,12 +200,8 @@ def select_best_model(comparison_df, metric="val_f1", register=True):
     # Register best model if requested
     if register and mlflow.active_run() is not None:
         try:
-            # Load best model
-            import pickle
-
             # with open(best_model_path, "rb") as f:
             #     best_model = pickle.load(f)
-            import joblib
 
             best_model = joblib.load(best_model_path)
 

@@ -3,8 +3,11 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from src.data.preprocess import (clean_column_names, clean_currency_values,
-                                 preprocess_data)
+from src.data.preprocess import (
+    clean_column_names,
+    clean_currency_values,
+    preprocess_data,
+)
 
 
 def test_clean_column_names(sample_data):

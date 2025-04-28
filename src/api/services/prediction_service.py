@@ -1,7 +1,6 @@
 # src/api/services/prediction_service.py
 import logging
 import os
-import pickle
 from typing import Any, Dict, List
 
 import joblib

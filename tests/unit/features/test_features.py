@@ -3,9 +3,11 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from src.features.build_features import (create_feature_pipeline,
-                                         encode_categorical_features,
-                                         normalize_numerical_features)
+from src.features.build_features import (
+    create_feature_pipeline,
+    encode_categorical_features,
+    normalize_numerical_features,
+)
 
 
 # tests/unit/features/test_features.py
