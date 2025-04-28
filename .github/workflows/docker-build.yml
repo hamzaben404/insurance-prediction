@@ -1,0 +1,45 @@
+# .github/workflows/docker-build.yml
+name: Docker Build
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master, develop ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Build Docker image
+        run: docker build -t insurance-prediction-api:test .
+        
+      - name: Test Docker image
+        run: |
+          docker run -d -p 8000:8000 --name insurance-api-test insurance-prediction-api:test
+          # Wait for container to start
+          sleep 10
+          # Test health endpoint
+          curl -f http://localhost:8000/health || exit 1
+          # Stop container
+          docker stop insurance-api-test
+      
+      - name: Login to GitHub Container Registry
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Build and push Docker image
+        if: github.event_name != 'pull_request'
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository }}/insurance-prediction-api:latest
+            ghcr.io/${{ github.repository }}/insurance-prediction-api:${{ github.sha }}
