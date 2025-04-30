@@ -1,7 +1,4 @@
 # tests/security/test_api_security.py
-import json
-
-import pytest
 
 
 def test_input_validation(test_client):
