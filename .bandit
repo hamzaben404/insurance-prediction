@@ -1,0 +1,9 @@
+# .bandit
+[bandit]
+# Exclude test directories
+exclude_dirs = ['tests', 'test']
+
+# Skip specific security checks that are not applicable for ML projects
+skips = ['B301', 'B403']
+# B301: pickle usage (necessary for ML model serialization)
+# B403: import pickle (necessary for ML model serialization)

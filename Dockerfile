@@ -37,8 +37,8 @@ ENV PATH=/root/.local/bin:$PATH
 COPY . .
 
 # Create directories for data and models with proper permissions
-RUN mkdir -p data/raw data/processed/test models/comparison/production && \
-    chmod -R 755 data models
+RUN mkdir -p data/raw data/processed/test models/comparison/production config && \
+    chmod -R 755 data models config
 
 # Set environment variables
 ENV PYTHONPATH=/app
@@ -51,12 +51,7 @@ LABEL org.opencontainers.image.description="Vehicle Insurance Prediction API"
 LABEL org.opencontainers.image.licenses="MIT"
 
 # Create a dummy model for testing (this will be replaced with real model in production)
-RUN python -c "import pickle; import numpy as np; from sklearn.ensemble import RandomForestClassifier; \
-    X = np.random.rand(100, 10); y = np.random.randint(0, 2, 100); \
-    model = RandomForestClassifier(n_estimators=10, random_state=42); \
-    model.fit(X, y); \
-    with open('models/comparison/production/production_model.pkl', 'wb') as f: \
-        pickle.dump(model, f)"
+RUN python scripts/create_dummy_model.py
 
 # Create a dummy test.csv file
 RUN echo "id,Gender,Age,HasDrivingLicense,RegionID,VehicleAge,PastAccident,AnnualPremium,SalesChannelID,DaysSinceCreated,Result" > data/raw/test.csv && \

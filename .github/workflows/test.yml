@@ -24,23 +24,36 @@ jobs:
           pip install -r requirements.txt
           pip install -r requirements-dev.txt
 
-      - name: Run security tests
-        run: |
-          # Create a mock model first
-          mkdir -p models/comparison/production
-          python -c "import pickle; import numpy as np; from sklearn.ensemble import RandomForestClassifier; X = np.random.rand(100, 10); y = np.random.randint(0, 2, 100); model = RandomForestClassifier(n_estimators=10); model.fit(X, y); pickle.dump(model, open('models/comparison/production/production_model.pkl', 'wb'))"
+      - name: Set PYTHONPATH
+        run: echo "PYTHONPATH=$GITHUB_WORKSPACE" >> $GITHUB_ENV
 
-          # Then run the tests
-          pytest tests/security -v
+      - name: Prepare test environment
+        run: |
+          # Create required directories
+          mkdir -p models/comparison/production
+          mkdir -p data/raw data/processed/test
+
+          # Create a mock model using the script
+          python scripts/create_dummy_model.py
+
+      - name: Run unit tests
+        run: |
+          export PYTHONPATH=$GITHUB_WORKSPACE
+          pytest tests/unit -v
 
       - name: Run integration tests
-        run: pytest tests/integration -v
+        run: |
+          export PYTHONPATH=$GITHUB_WORKSPACE
+          pytest tests/integration -v
 
       - name: Run security tests
-        run: pytest tests/security -v
+        run: |
+          export PYTHONPATH=$GITHUB_WORKSPACE
+          pytest tests/security -v
 
       - name: Generate test coverage report
         run: |
+          export PYTHONPATH=$GITHUB_WORKSPACE
           pytest --cov=src --cov-report=xml tests/
 
       - name: Upload coverage report to Codecov
