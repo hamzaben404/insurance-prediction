@@ -1,5 +1,4 @@
 # src/data/validate_data.py
-import numpy as np
 import pandas as pd
 
 from src.utils.logging import setup_logger
@@ -79,9 +78,7 @@ def validate_dataset(df):
     # Check 5: AnnualPremium is non-negative
     if "AnnualPremium" in df.columns:
         # Since AnnualPremium might have currency symbols, we check after cleaning
-        premiums = (
-            df["AnnualPremium"].astype(str).str.replace("£", "").str.replace(",", "")
-        )
+        premiums = df["AnnualPremium"].astype(str).str.replace("£", "").str.replace(",", "")
         premiums = pd.to_numeric(premiums, errors="coerce")
         min_premium = premiums.min()
 

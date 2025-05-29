@@ -1,5 +1,4 @@
 # tests/unit/api/test_health.py
-import pytest
 
 
 def test_root_endpoint(test_client):

@@ -40,37 +40,24 @@ test-coverage:
 	@echo "Coverage report generated in htmlcov directory"
 
 
-# Add to existing Makefile
+# Run all CI steps locally
+ci-check: format lint security-check test
 
-# CI/CD commands
-.PHONY: ci-lint ci-test ci-security ci-build cd-build cd-release
+# Corrected format target (using TABS for indentation)
+format:
+	python scripts/format_code.py
 
-# Run linting (for CI)
-ci-lint:
-	black --check src tests
-	isort --check src tests
+# Add this target to check formatting without modifying files
+format-check:
+	black --check --config pyproject.toml src tests
+	isort --check-only --settings pyproject.toml src tests
+
+lint:
 	flake8 src tests
 
-# Run tests (for CI)
-ci-test:
-	pytest tests/unit
-	pytest tests/integration
-	pytest tests/security
-	pytest --cov=src tests/ --cov-report=xml
+security-check:
+	bandit -r src -x tests
+	safety check
 
-# Run security checks (for CI)
-ci-security:
-	bandit -r src/
-	safety check -r requirements.txt
-
-# Build Docker image (for CI)
-ci-build:
-	docker build -t insurance-prediction-api:test .
-
-# Build and tag Docker image (for CD)
-cd-build:
-	docker build -t yourusername/insurance-prediction-api:latest -t yourusername/insurance-prediction-api:$(shell cat VERSION) .
-
-# Release a new version
-cd-release:
-	bumpversion $(type)
+# Run all CI steps locally
+ci-check: format lint security-check test

@@ -8,11 +8,11 @@ import pandas as pd
 import pytest
 from fastapi.testclient import TestClient
 
-# Add project root to path for imports
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-
 # Import application
 from src.api.main import app
+
+# Add project root to path for imports
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 
 @pytest.fixture

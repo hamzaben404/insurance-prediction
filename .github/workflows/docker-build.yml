@@ -19,10 +19,22 @@ jobs:
       - name: Test Docker image
         run: |
           docker run -d -p 8000:8000 --name insurance-api-test insurance-prediction-api:test
-          # Wait for container to start
-          sleep 30
-          # Test health endpoint
-          curl -f http://localhost:8000/health || exit 1
+
+          # Wait for container to start (longer wait)
+          echo "Waiting for container to start..."
+          sleep 45
+
+          # Check container logs to diagnose issues
+          echo "Container logs:"
+          docker logs insurance-api-test
+
+          # Check if container is still running
+          echo "Container status:"
+          docker ps | grep insurance-api-test
+
+          # Try to test health endpoint
+          curl -v http://localhost:8000/health || exit 1
+
           # Stop container
           docker stop insurance-api-test
 

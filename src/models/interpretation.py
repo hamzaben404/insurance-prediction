@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 import shap
-from sklearn.inspection import permutation_importance
+from sklearn.inspection import partial_dependence, permutation_importance
 
 from src.utils.logging import setup_logger
 
@@ -50,15 +50,11 @@ def plot_feature_importance(model, X, feature_names=None, top_n=20, output_dir=N
 
     # For linear models with coef_ attribute
     elif hasattr(model, "coef_"):
-        importances = (
-            np.abs(model.coef_[0]) if model.coef_.ndim > 1 else np.abs(model.coef_)
-        )
+        importances = np.abs(model.coef_[0]) if model.coef_.ndim > 1 else np.abs(model.coef_)
 
     # Use permutation importance if importances not available
     if importances is None:
-        logger.info(
-            "Model doesn't have built-in feature importance, using permutation importance"
-        )
+        logger.info("Model doesn't have built-in feature importance, using permutation importance")
         perm_importance = permutation_importance(
             model, X, method="predict", n_repeats=10, random_state=42
         )
@@ -66,9 +62,7 @@ def plot_feature_importance(model, X, feature_names=None, top_n=20, output_dir=N
 
     # Create and sort importance dataframe
     importance_df = pd.DataFrame({"Feature": feature_names, "Importance": importances})
-    importance_df = importance_df.sort_values(
-        "Importance", ascending=False
-    ).reset_index(drop=True)
+    importance_df = importance_df.sort_values("Importance", ascending=False).reset_index(drop=True)
 
     # Limit to top N features
     if len(importance_df) > top_n:
@@ -154,9 +148,7 @@ def generate_shap_explanation(model, X, X_background=None, output_dir=None):
         if output_dir:
             # Summary plot
             plt.figure(figsize=(10, 8))
-            shap.summary_plot(
-                shap_values, X_data, feature_names=feature_names, show=False
-            )
+            shap.summary_plot(shap_values, X_data, feature_names=feature_names, show=False)
             summary_path = os.path.join(output_dir, "shap_summary.png")
             plt.savefig(summary_path)
             plt.close()
@@ -194,9 +186,7 @@ def generate_shap_explanation(model, X, X_background=None, output_dir=None):
                 mlflow.log_artifact(summary_path)
                 mlflow.log_artifact(bar_path)
                 for i in range(len(top_indices)):
-                    mlflow.log_artifact(
-                        os.path.join(output_dir, f"shap_dependence_{i}.png")
-                    )
+                    mlflow.log_artifact(os.path.join(output_dir, f"shap_dependence_{i}.png"))
 
         return {"shap_values": shap_values, "explainer": explainer}
 
@@ -218,7 +208,6 @@ def plot_partial_dependence(model, X, features=None, output_dir=None):
     Returns:
         None
     """
-    from sklearn.inspection import partial_dependence, plot_partial_dependence
 
     logger.info("Generating partial dependence plots")
 
@@ -235,9 +224,7 @@ def plot_partial_dependence(model, X, features=None, output_dir=None):
     # If features not specified, use top 5 important features
     if features is None:
         # Get feature importance
-        importance_df = plot_feature_importance(
-            model, X, feature_names, output_dir=None
-        )
+        importance_df = plot_feature_importance(model, X, feature_names, output_dir=None)
         features = importance_df["Feature"].head(5).tolist()
 
     # Convert feature names to indices if needed

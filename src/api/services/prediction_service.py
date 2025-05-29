@@ -4,7 +4,6 @@ import os
 from typing import Any, Dict, List
 
 import joblib
-import numpy as np
 import pandas as pd
 
 from src.data.preprocess import preprocess_data

@@ -2,8 +2,6 @@
 from unittest.mock import MagicMock, patch
 
 import numpy as np
-import pandas as pd
-import pytest
 
 
 def test_data_to_prediction_pipeline(sample_data, mock_model_path):
@@ -11,19 +9,16 @@ def test_data_to_prediction_pipeline(sample_data, mock_model_path):
     # Import necessary components
     from src.api.services.prediction_service import PredictionService
     from src.data.preprocess import preprocess_data
-    from src.features.build_features import create_feature_pipeline
 
     # Process the data
     processed_data = preprocess_data(sample_data)
-    featured_data = create_feature_pipeline(processed_data)
+    # featured_data = create_feature_pipeline(processed_data)
 
     # Convert to list of records for prediction
     data_records = processed_data.iloc[0:1].to_dict("records")
 
     # Instead of mocking _ensure_features_match, mock the actual model
-    with patch(
-        "src.api.services.prediction_service.PredictionService._load_model"
-    ) as mock_load:
+    with patch("src.api.services.prediction_service.PredictionService._load_model") as mock_load:
         # Create a mock model with predict_proba method
         mock_model = MagicMock()
         mock_model.predict_proba.return_value = np.array([[0.3, 0.7]])

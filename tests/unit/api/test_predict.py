@@ -1,16 +1,11 @@
 # tests/unit/api/test_predict.py
-import os
 from unittest.mock import patch
-
-import pytest
 
 
 def test_predict_endpoint(test_client, prediction_payload, mock_model_path):
     """Test prediction endpoint with mocked model"""
     # Mock the prediction service
-    with patch(
-        "src.api.services.prediction_service.PredictionService.predict"
-    ) as mock_predict:
+    with patch("src.api.services.prediction_service.PredictionService.predict") as mock_predict:
         # Set up the mock to return a fixed prediction
         mock_predict.return_value = [{"prediction": 1, "probability": 0.75}]
 
@@ -29,9 +24,7 @@ def test_predict_endpoint(test_client, prediction_payload, mock_model_path):
 def test_batch_predict_endpoint(test_client, batch_prediction_payload, mock_model_path):
     """Test batch prediction endpoint with mocked model"""
     # Mock the prediction service
-    with patch(
-        "src.api.services.prediction_service.PredictionService.predict"
-    ) as mock_predict:
+    with patch("src.api.services.prediction_service.PredictionService.predict") as mock_predict:
         # Set up the mock to return fixed predictions
         mock_predict.return_value = [
             {"prediction": 1, "probability": 0.75},

@@ -1,18 +1,11 @@
 # src/models/train_model.py
 import os
 from datetime import datetime
+
 import joblib
 
-import mlflow
-import numpy as np
-import pandas as pd
-
 from src.models.cross_validation import cross_validate_model
-from src.models.evaluation import (
-    evaluate_model,
-    evaluate_threshold,
-    generate_classification_report,
-)
+from src.models.evaluation import evaluate_model, evaluate_threshold, generate_classification_report
 from src.models.hyperparameter_tuning import (
     get_default_param_grids,
     grid_search_cv,
@@ -23,14 +16,7 @@ from src.models.interpretation import (
     plot_feature_importance,
     plot_partial_dependence,
 )
-from src.models.mlflow_utils import (
-    log_dataset_info,
-    log_metrics,
-    log_model_params,
-    setup_mlflow,
-    start_run,
-)
-from src.models.model_factory import create_model, get_available_models
+from src.models.model_factory import create_model
 from src.utils.logging import setup_logger
 
 logger = setup_logger(__name__)
@@ -119,9 +105,7 @@ def train_model(
             results["best_params"] = best_params
             results["best_tuning_score"] = best_score
         else:
-            logger.warning(
-                f"No parameter grid defined for {model_type}, skipping tuning"
-            )
+            logger.warning(f"No parameter grid defined for {model_type}, skipping tuning")
 
     # Train final model
     logger.info("Training final model")

@@ -1,13 +1,14 @@
 # src/api/main.py
-import os
 import logging
+import os
+import time
+
+import uvicorn
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
-import uvicorn
-import time
 
-from src.api.routers import prediction, health
+from src.api.routers import health, prediction
 
 # Configure logging
 logging.basicConfig(
@@ -80,6 +81,4 @@ if __name__ == "__main__":
     port = int(os.getenv("API_PORT", 8000))
 
     # Run the application
-    uvicorn.run(
-        "src.api.main:app", host="0.0.0.0", port=port, reload=True  # nosec B104
-    )
+    uvicorn.run("src.api.main:app", host="0.0.0.0", port=port, reload=True)  # nosec B104

@@ -2,16 +2,15 @@
 import os
 import sys
 
-import pandas as pd
-
-# Add the project root to Python path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-
 from src.data.data_split import split_data
 from src.data.load_data import load_dataset
 from src.data.preprocess import preprocess_data
 from src.data.validate_data import validate_dataset
 from src.features.build_features import create_feature_pipeline
+
+# Add the project root to Python path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
 
 # Test paths
 train_path = "data/raw/train.csv"

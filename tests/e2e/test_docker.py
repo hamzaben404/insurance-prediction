@@ -13,9 +13,7 @@ class TestDocker:
     def setup_class(cls):
         """Build and start the Docker container for testing"""
         print("Building Docker image...")
-        subprocess.run(
-            ["docker", "build", "-t", "insurance-prediction-api-test", "."], check=True
-        )
+        subprocess.run(["docker", "build", "-t", "insurance-prediction-api-test", "."], check=True)
 
         print("Starting Docker container...")
         cls.container_id = subprocess.check_output(

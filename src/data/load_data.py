@@ -1,7 +1,4 @@
 # src/data/load_data.py
-import os
-from pathlib import Path
-
 import pandas as pd
 
 from src.utils.logging import setup_logger

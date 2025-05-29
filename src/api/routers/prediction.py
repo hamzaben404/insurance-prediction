@@ -1,6 +1,4 @@
 # src/api/routers/prediction.py
-from typing import List
-
 from fastapi import APIRouter, Depends, HTTPException
 
 from src.api.dependencies import get_prediction_service
@@ -9,7 +7,6 @@ from src.api.models.insurance import (
     BatchPredictionResponse,
     InsuranceFeatures,
     InsurancePrediction,
-    ModelInfo,
 )
 from src.api.services.prediction_service import PredictionService
 

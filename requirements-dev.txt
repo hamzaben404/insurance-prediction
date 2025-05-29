@@ -2,10 +2,10 @@
 pytest>=6.0.0
 pytest-cov>=2.12.0
 bandit>=1.7.0
-black>=21.5b2
 flake8>=3.9.0
-isort>=5.9.0
 safety>=1.10.0
 coverage>=5.5
 hypothesis>=6.14.0
 locust>=2.8.0
+isort==5.12.0
+black==23.3.0

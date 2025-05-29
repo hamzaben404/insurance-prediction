@@ -4,15 +4,11 @@ import os
 
 import uvicorn
 
-from src.api.main import app  # Import the app from main.py
-
 
 def main():
     """Run the API server"""
     parser = argparse.ArgumentParser(description="Start the API server")
-    parser.add_argument(
-        "--port", type=int, default=8000, help="Port to run the server on"
-    )
+    parser.add_argument("--port", type=int, default=8000, help="Port to run the server on")
     parser.add_argument(
         "--host",
         type=str,

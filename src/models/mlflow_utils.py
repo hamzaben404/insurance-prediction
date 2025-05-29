@@ -30,17 +30,13 @@ def setup_mlflow(experiment_name="insurance_prediction", tracking_uri=None):
         experiment = mlflow.get_experiment_by_name(experiment_name)
         if experiment:
             experiment_id = experiment.experiment_id
-            logger.info(
-                f"Using existing experiment '{experiment_name}' (ID: {experiment_id})"
-            )
+            logger.info(f"Using existing experiment '{experiment_name}' (ID: {experiment_id})")
         else:
             experiment_id = mlflow.create_experiment(
                 experiment_name,
                 artifact_location=os.path.join("mlruns", experiment_name),
             )
-            logger.info(
-                f"Created new experiment '{experiment_name}' (ID: {experiment_id})"
-            )
+            logger.info(f"Created new experiment '{experiment_name}' (ID: {experiment_id})")
 
         return experiment_id
     except Exception as e:
@@ -115,17 +111,13 @@ def register_model(model, name, stage=None):
         str: Model version
     """
     try:
-        result = mlflow.register_model(
-            f"runs:/{mlflow.active_run().info.run_id}/model", name
-        )
+        result = mlflow.register_model(f"runs:/{mlflow.active_run().info.run_id}/model", name)
         version = result.version
 
         # Set stage if provided
         if stage:
             client = MlflowClient()
-            client.transition_model_version_stage(
-                name=name, version=version, stage=stage
-            )
+            client.transition_model_version_stage(name=name, version=version, stage=stage)
             logger.info(f"Model {name} version {version} transitioned to {stage}")
 
         return version

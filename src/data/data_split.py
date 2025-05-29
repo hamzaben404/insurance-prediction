@@ -1,6 +1,4 @@
 # src/data/data_split.py
-import numpy as np
-import pandas as pd
 from sklearn.model_selection import train_test_split
 
 from src.utils.logging import setup_logger
@@ -8,9 +6,8 @@ from src.utils.logging import setup_logger
 logger = setup_logger(__name__)
 
 
-def split_data(
-    df, target_column="result", test_size=0.2, val_size=0.25, random_state=42
-):
+# src/data/data_split.py
+def split_data(df, target_column="result", test_size=0.2, val_size=0.25, random_state=42):
     """
     Split data into train, validation, and test sets
 
@@ -30,7 +27,7 @@ def split_data(
     if target_column not in df.columns:
         logger.warning(f"Target column '{target_column}' not found in dataframe")
         if "Result" in df.columns:
-            logger.info(f"Using 'Result' as target column instead")
+            logger.info("Using 'Result' as target column instead")  # Fixed missing placeholders
             target_column = "Result"
         else:
             raise ValueError(f"Target column '{target_column}' not found in dataframe")
@@ -54,7 +51,8 @@ def split_data(
     )
 
     logger.info(
-        f"Data split complete. Train: {X_train.shape}, Validation: {X_val.shape}, Test: {X_test.shape}"
+        f"Data split complete. Train: {X_train.shape}, "
+        f"Validation: {X_val.shape}, Test: {X_test.shape}"
     )
 
     return X_train, X_val, X_test, y_train, y_val, y_test

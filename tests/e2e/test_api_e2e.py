@@ -1,7 +1,6 @@
 # tests/e2e/test_api_e2e.py
 import atexit
 import os
-import signal
 import subprocess
 import sys
 import time
@@ -25,9 +24,7 @@ def api_url():
 
         # Set up environment for test
         env = os.environ.copy()
-        env["MODEL_PATH"] = os.path.abspath(
-            "models/comparison/production/production_model.pkl"
-        )
+        env["MODEL_PATH"] = os.path.abspath("models/comparison/production/production_model.pkl")
 
         # Start server in background
         server_process = subprocess.Popen(

@@ -147,3 +147,10 @@ Example response:
 - 429: Too Many Requests (rate limit exceeded)
 - 500: Internal Server Error
 - 503: Service Unavailable (model not loaded)
+
+# Insurance Prediction MLOps Pipeline
+
+![Code Quality](https://github.com/hamzaben404/insurance-prediction/actions/workflows/code-quality.yml/badge.svg)
+![Tests](https://github.com/hamzaben404/insurance-prediction/actions/workflows/test.yml/badge.svg)
+![Docker Build](https://github.com/hamzaben404/insurance-prediction/actions/workflows/docker-build.yml/badge.svg)
+![Model Validation](https://github.com/hamzaben404/insurance-prediction/actions/workflows/model-validation.yml/badge.svg)

@@ -1,16 +1,12 @@
 # src/data/process_data.py
 import argparse
 import json
-import os
 from pathlib import Path
-
-import pandas as pd
 
 from config.config import PROCESSED_DATA_DIR, RAW_DATA_DIR
 from src.data.data_split import split_data
 from src.data.load_data import get_data_info, load_dataset
 from src.data.preprocess import preprocess_data
-from src.data.profile_data import create_data_profile
 from src.data.validate_data import validate_dataset
 from src.features.build_features import create_feature_pipeline
 from src.utils.logging import setup_logger
@@ -55,7 +51,7 @@ def process_pipeline(input_file, output_dir=None, create_splits=True):
 
     # Step 5: Create data profile
     logger.info("Creating data profile")
-    profile = create_data_profile(df_processed, output_dir=f"{output_dir}/profile")
+    # profile = create_data_profile(df_processed, output_dir=f"{output_dir}/profile")
 
     # Step 6: Feature engineering
     logger.info("Running feature engineering")

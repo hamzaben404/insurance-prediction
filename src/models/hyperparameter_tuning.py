@@ -1,6 +1,6 @@
 # src/models/hyperparameter_tuning.py
 import mlflow
-import numpy as np
+import pandas as pd
 from sklearn.model_selection import GridSearchCV, RandomizedSearchCV
 
 from src.utils.logging import setup_logger
@@ -8,9 +8,7 @@ from src.utils.logging import setup_logger
 logger = setup_logger(__name__)
 
 
-def grid_search_cv(
-    model, param_grid, X, y, cv=5, scoring="roc_auc", refit=True, random_state=42
-):
+def grid_search_cv(model, param_grid, X, y, cv=5, scoring="roc_auc", refit=True, random_state=42):
     """
     Perform grid search cross-validation
 

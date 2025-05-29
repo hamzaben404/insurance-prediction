@@ -19,7 +19,7 @@ stages:
     metrics:
       - data/processed/train/data_info.json:
           cache: false
-    
+
   process_test_data:
     cmd: python -m src.data.process_data --input data/raw/test.csv --output data/processed/test --no-splits
     deps:
@@ -33,7 +33,7 @@ stages:
     metrics:
       - data/processed/test/data_info.json:
           cache: false
-          
+
   train_models:
     cmd: python -m src.run_training_pipeline --data-dir data/processed/train --output-dir models/comparison
     deps:

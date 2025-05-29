@@ -9,9 +9,7 @@ class InsuranceFeatures(BaseModel):
 
     gender: str = Field(..., description="Customer gender (Male/Female)")
     age: float = Field(..., description="Customer age")
-    has_driving_license: bool = Field(
-        ..., description="Whether customer has driving license"
-    )
+    has_driving_license: bool = Field(..., description="Whether customer has driving license")
     region_id: int = Field(..., description="Region identifier")
     vehicle_age: str = Field(..., description="Age category of the vehicle")
     past_accident: Optional[str] = Field(
@@ -32,17 +30,13 @@ class InsurancePrediction(BaseModel):
 class BatchPredictionRequest(BaseModel):
     """Batch prediction request"""
 
-    records: List[InsuranceFeatures] = Field(
-        ..., description="List of records to predict"
-    )
+    records: List[InsuranceFeatures] = Field(..., description="List of records to predict")
 
 
 class BatchPredictionResponse(BaseModel):
     """Batch prediction response"""
 
-    predictions: List[InsurancePrediction] = Field(
-        ..., description="Prediction results"
-    )
+    predictions: List[InsurancePrediction] = Field(..., description="Prediction results")
 
 
 class ModelInfo(BaseModel):

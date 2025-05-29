@@ -11,9 +11,7 @@ def main():
     """Validate model metrics against thresholds"""
     parser = argparse.ArgumentParser(description="Validate model metrics")
     parser.add_argument("--data", required=True, help="Path to test data CSV")
-    parser.add_argument(
-        "--threshold", type=float, default=0.7, help="Minimum acceptable metric"
-    )
+    parser.add_argument("--threshold", type=float, default=0.7, help="Minimum acceptable metric")
 
     args = parser.parse_args()
 
@@ -25,9 +23,7 @@ def main():
     y = df.iloc[:, -1]
 
     # Load model
-    model_path = os.environ.get(
-        "MODEL_PATH", "models/comparison/production/production_model.pkl"
-    )
+    model_path = os.environ.get("MODEL_PATH", "models/comparison/production/production_model.pkl")
     with open(model_path, "rb") as f:
         model = pickle.load(f)
 

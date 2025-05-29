@@ -1,15 +1,8 @@
 # src/models/cross_validation.py
 import mlflow
 import numpy as np
-import pandas as pd
-from sklearn.metrics import (
-    accuracy_score,
-    f1_score,
-    precision_score,
-    recall_score,
-    roc_auc_score,
-)
-from sklearn.model_selection import StratifiedKFold, cross_val_score
+from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score, roc_auc_score
+from sklearn.model_selection import StratifiedKFold
 
 from src.utils.logging import setup_logger
 
@@ -59,9 +52,7 @@ def cross_validate_model(model, X, y, cv=5, scoring="roc_auc", random_state=42):
 
         # Calculate metrics
         fold_metrics["accuracy"].append(accuracy_score(y_val_fold, y_pred))
-        fold_metrics["precision"].append(
-            precision_score(y_val_fold, y_pred, zero_division=0)
-        )
+        fold_metrics["precision"].append(precision_score(y_val_fold, y_pred, zero_division=0))
         fold_metrics["recall"].append(recall_score(y_val_fold, y_pred, zero_division=0))
         fold_metrics["f1"].append(f1_score(y_val_fold, y_pred, zero_division=0))
         fold_metrics["roc_auc"].append(roc_auc_score(y_val_fold, y_pred_proba))

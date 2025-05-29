@@ -2,11 +2,9 @@
 import argparse
 import os
 
-import mlflow
 import pandas as pd
 
 from config.config import MODELS_DIR, PROCESSED_DATA_DIR
-from src.data.load_data import load_dataset
 from src.models.model_selection import select_best_model, train_multiple_models
 from src.utils.logging import setup_logger
 from src.utils.mlflow_utils import setup_mlflow
@@ -34,7 +32,8 @@ def main(args):
     y_val = pd.read_csv(os.path.join(args.data_dir, "y_val.csv")).iloc[:, 0]
 
     logger.info(
-        f"Loaded data - X_train: {X_train.shape}, y_train: {y_train.shape}, X_val: {X_val.shape}, y_val: {y_val.shape}"
+        f"Loaded data - X_train: {X_train.shape}, y_train: {y_train.shape}, "
+        f"X_val: {X_val.shape}, y_val: {y_val.shape}"
     )
 
     # Define models to try
@@ -95,9 +94,7 @@ if __name__ == "__main__":
         default="insurance_prediction",
         help="MLflow experiment name",
     )
-    parser.add_argument(
-        "--tracking-uri", type=str, default=None, help="MLflow tracking URI"
-    )
+    parser.add_argument("--tracking-uri", type=str, default=None, help="MLflow tracking URI")
 
     args = parser.parse_args()
 

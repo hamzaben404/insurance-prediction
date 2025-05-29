@@ -1,7 +1,4 @@
 # tests/unit/features/test_features.py
-import numpy as np
-import pandas as pd
-import pytest
 
 from src.features.build_features import (
     create_feature_pipeline,

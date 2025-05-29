@@ -1,7 +1,6 @@
 # src/features/build_features.py
-import numpy as np
 import pandas as pd
-from sklearn.preprocessing import OneHotEncoder, StandardScaler
+from sklearn.preprocessing import StandardScaler
 
 from src.utils.logging import setup_logger
 
@@ -47,9 +46,7 @@ def encode_categorical_features(df):
             # Join with main dataframe
             df_encoded = pd.concat([df_encoded.drop(col, axis=1), dummies], axis=1)
 
-            logger.info(
-                f"Encoded {col} with clean column names: {list(dummies.columns)}"
-            )
+            logger.info(f"Encoded {col} with clean column names: {list(dummies.columns)}")
 
     logger.info(f"Encoded categorical features. New shape: {df_encoded.shape}")
     return df_encoded
@@ -103,15 +100,11 @@ def create_interaction_features(df):
     # Age and annual premium interaction
     if "age" in df.columns and "annual_premium" in df.columns:
         # Avoid division by zero
-        df_interactions["age_premium_ratio"] = df["age"] / df["annual_premium"].replace(
-            0, 0.001
-        )
+        df_interactions["age_premium_ratio"] = df["age"] / df["annual_premium"].replace(0, 0.001)
 
     # Age and days since created interaction
     if "age" in df.columns and "days_since_created" in df.columns:
-        df_interactions["age_days_ratio"] = (
-            df["age"] * 365 / df["days_since_created"].replace(0, 1)
-        )
+        df_interactions["age_days_ratio"] = df["age"] * 365 / df["days_since_created"].replace(0, 1)
 
     logger.info(f"Created interaction features. New shape: {df_interactions.shape}")
     return df_interactions

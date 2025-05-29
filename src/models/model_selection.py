@@ -1,22 +1,14 @@
 # src/models/model_selection.py
 import os
 
+import joblib
 import matplotlib.pyplot as plt
 import mlflow
 import numpy as np
 import pandas as pd
 import seaborn as sns
-import joblib
 
-
-from src.models.mlflow_utils import (
-    log_dataset_info,
-    log_metrics,
-    log_model_params,
-    register_model,
-    setup_mlflow,
-    start_run,
-)
+from src.models.mlflow_utils import log_dataset_info, log_metrics, register_model, start_run
 from src.models.model_factory import get_available_models
 from src.models.train_model import train_model
 from src.utils.logging import setup_logger
@@ -49,7 +41,7 @@ def train_multiple_models(
         pd.DataFrame: Comparison of model performances
     """
     # Setup MLflow
-    experiment_id = setup_mlflow("insurance_model_selection", tracking_uri)
+    # experiment_id = setup_mlflow("insurance_model_selection", tracking_uri)
 
     # Use all available models if none specified
     if models_to_try is None:
@@ -76,9 +68,7 @@ def train_multiple_models(
                 {
                     "train_shape": X_train.shape,
                     "val_shape": X_val.shape,
-                    "features": (
-                        X_train.columns.tolist() if hasattr(X_train, "columns") else []
-                    ),
+                    "features": (X_train.columns.tolist() if hasattr(X_train, "columns") else []),
                     "target": "insurance_purchase",
                 }
             )
@@ -105,9 +95,7 @@ def train_multiple_models(
                         "train_precision": results["train_metrics"]["precision"],
                         "train_recall": results["train_metrics"]["recall"],
                         "train_f1": results["train_metrics"]["f1"],
-                        "train_roc_auc": results["train_metrics"].get(
-                            "roc_auc", np.nan
-                        ),
+                        "train_roc_auc": results["train_metrics"].get("roc_auc", np.nan),
                         "val_accuracy": results["val_metrics"]["accuracy"],
                         "val_precision": results["val_metrics"]["precision"],
                         "val_recall": results["val_metrics"]["recall"],
@@ -193,9 +181,7 @@ def select_best_model(comparison_df, metric="val_f1", register=True):
     best_model_path = best_row["model_path"]
     best_metric_value = best_row[metric]
 
-    logger.info(
-        f"Best model: {best_model_type} with {metric} = {best_metric_value:.4f}"
-    )
+    logger.info(f"Best model: {best_model_type} with {metric} = {best_metric_value:.4f}")
 
     # Register best model if requested
     if register and mlflow.active_run() is not None:

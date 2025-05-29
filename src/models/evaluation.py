@@ -47,7 +47,7 @@ def evaluate_model(model, X, y, threshold=0.5, output_dir=None):
     try:
         y_prob = model.predict_proba(X)[:, 1]
         y_pred = (y_prob >= threshold).astype(int)
-    except:
+    except AttributeError:
         logger.warning("Model doesn't support predict_proba, using predict instead")
         y_pred = model.predict(X)
         y_prob = y_pred  # Not actual probabilities
@@ -168,11 +168,8 @@ def evaluate_threshold(model, X, y, thresholds=None, output_dir=None):
     # Make predictions
     try:
         y_prob = model.predict_proba(X)[:, 1]
-    except:
-        logger.warning(
-            "Model doesn't support predict_proba, skipping threshold evaluation"
-        )
-        return None
+    except AttributeError:
+        logger.warning("Model doesn't support predict_proba, skipping threshold evaluation")
 
     # Evaluate at each threshold
     results = []

@@ -2,10 +2,8 @@
 import concurrent.futures
 import os
 import statistics
-import sys
 import time
 
-import pytest
 import requests
 
 # Set API URL (adjust as needed)
@@ -45,7 +43,7 @@ def test_prediction_performance():
     max_time = max(response_times)
     min_time = min(response_times)
 
-    print(f"\nPerformance Results:")
+    print("\nPerformance Results:")
     print(f"Average response time: {avg_time:.4f} seconds")
     print(f"Min response time: {min_time:.4f} seconds")
     print(f"Max response time: {max_time:.4f} seconds")
@@ -87,9 +85,7 @@ def test_concurrent_load():
 
     # Make concurrent requests
     with concurrent.futures.ThreadPoolExecutor(max_workers=num_concurrent) as executor:
-        future_to_worker = {
-            executor.submit(make_requests): i for i in range(num_concurrent)
-        }
+        future_to_worker = {executor.submit(make_requests): i for i in range(num_concurrent)}
 
         all_times = []
         for future in concurrent.futures.as_completed(future_to_worker):
@@ -105,13 +101,11 @@ def test_concurrent_load():
     max_time = max(all_times)
     min_time = min(all_times)
 
-    print(f"\nConcurrent Load Results:")
+    print("\nConcurrent Load Results:")
     print(f"Total requests: {num_concurrent * num_requests_per_worker}")
     print(f"Average response time: {avg_time:.4f} seconds")
     print(f"Min response time: {min_time:.4f} seconds")
     print(f"Max response time: {max_time:.4f} seconds")
 
     # Assert reasonable performance under load
-    assert (
-        avg_time < 2.0
-    ), "Average response time under load should be less than 2 seconds"
+    assert avg_time < 2.0, "Average response time under load should be less than 2 seconds"

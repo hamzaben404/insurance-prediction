@@ -1,4 +1,4 @@
-# Dockerfile - Add healthcheck and LABEL for versioning
+# Dockerfile - Fixed health check and permissions
 FROM python:3.10-slim AS builder
 
 # Set working directory
@@ -21,7 +21,7 @@ FROM python:3.10-slim
 # Set working directory
 WORKDIR /app
 
-# Install runtime dependencies
+# Install runtime dependencies including curl for healthcheck
 RUN apt-get update && \
     apt-get install -y --no-install-recommends libgomp1 curl && \
     apt-get clean && \
@@ -36,12 +36,9 @@ ENV PATH=/root/.local/bin:$PATH
 # Copy application code
 COPY . .
 
-# Create a non-root user
-RUN useradd -m appuser
-USER appuser
-
-# Expose port
-EXPOSE 8000
+# Create directories for data and models with proper permissions
+RUN mkdir -p data/raw data/processed/test models/comparison/production && \
+    chmod -R 755 data models
 
 # Set environment variables
 ENV PYTHONPATH=/app
@@ -53,8 +50,30 @@ LABEL org.opencontainers.image.source="https://github.com/yourusername/insurance
 LABEL org.opencontainers.image.description="Vehicle Insurance Prediction API"
 LABEL org.opencontainers.image.licenses="MIT"
 
-# Define healthcheck
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+# Create a dummy model for testing (this will be replaced with real model in production)
+RUN python -c "import pickle; import numpy as np; from sklearn.ensemble import RandomForestClassifier; \
+    X = np.random.rand(100, 10); y = np.random.randint(0, 2, 100); \
+    model = RandomForestClassifier(n_estimators=10, random_state=42); \
+    model.fit(X, y); \
+    with open('models/comparison/production/production_model.pkl', 'wb') as f: \
+        pickle.dump(model, f)"
+
+# Create a dummy test.csv file
+RUN echo "id,Gender,Age,HasDrivingLicense,RegionID,VehicleAge,PastAccident,AnnualPremium,SalesChannelID,DaysSinceCreated,Result" > data/raw/test.csv && \
+    echo "1,Male,30,1,10,1-2 Year,No,1000,26,60,0" >> data/raw/test.csv
+
+# Create a non-root user and give ownership of app directory
+RUN useradd -m -u 1000 appuser && \
+    chown -R appuser:appuser /app
+
+# Switch to non-root user
+USER appuser
+
+# Expose port
+EXPOSE 8000
+
+# Health check using curl
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
     CMD curl -f http://localhost:8000/health || exit 1
 
 # Start the application
