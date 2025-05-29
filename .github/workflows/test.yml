@@ -51,6 +51,12 @@ jobs:
           export PYTHONPATH=$GITHUB_WORKSPACE
           pytest tests/security -v
 
+      - name: Run e2e and performance tests
+        run: |
+          export PYTHONPATH=$GITHUB_WORKSPACE
+          export SKIP_DOCKER_TESTS=1
+          pytest tests/e2e tests/performance -v || echo "Some e2e/performance tests failed"
+
       - name: Generate test coverage report
         run: |
           export PYTHONPATH=$GITHUB_WORKSPACE

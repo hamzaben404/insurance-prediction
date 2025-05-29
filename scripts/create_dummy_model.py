@@ -8,7 +8,7 @@ from sklearn.ensemble import RandomForestClassifier
 
 
 def create_dummy_model(
-    n_features=14, output_path="models/comparison/production/production_model.pkl"
+    n_features=17, output_path="models/comparison/production/production_model.pkl"
 ):
     """Create and save a dummy RandomForest model"""
     # Ensure directory exists

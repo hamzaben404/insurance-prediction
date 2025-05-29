@@ -1,4 +1,4 @@
-# Dockerfile - Fixed health check and permissions
+# Dockerfile - Fixed with proper Python path
 FROM python:3.10-slim AS builder
 
 # Set working directory
@@ -13,8 +13,8 @@ RUN apt-get update && \
 # Copy requirements
 COPY requirements.txt .
 
-# Install dependencies
-RUN pip install --no-cache-dir --user -r requirements.txt
+# Install dependencies as root (not using --user)
+RUN pip install --no-cache-dir -r requirements.txt
 
 FROM python:3.10-slim
 
@@ -28,17 +28,15 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Copy installed packages from builder
-COPY --from=builder /root/.local /root/.local
-
-# Make sure scripts in .local are usable
-ENV PATH=/root/.local/bin:$PATH
+COPY --from=builder /usr/local/lib/python3.10/site-packages /usr/local/lib/python3.10/site-packages
+COPY --from=builder /usr/local/bin /usr/local/bin
 
 # Copy application code
 COPY . .
 
 # Create directories for data and models with proper permissions
 RUN mkdir -p data/raw data/processed/test models/comparison/production config && \
-    chmod -R 755 data models config
+    chmod -R 755 data models config scripts
 
 # Set environment variables
 ENV PYTHONPATH=/app
@@ -71,5 +69,5 @@ EXPOSE 8000
 HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
     CMD curl -f http://localhost:8000/health || exit 1
 
-# Start the application using python -m to avoid path issues
+# Start the application
 CMD ["python", "-m", "uvicorn", "src.api.main:app", "--host", "0.0.0.0", "--port", "8000"]
