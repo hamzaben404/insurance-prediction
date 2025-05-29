@@ -5,9 +5,10 @@ pandas>=1.3.0
 scikit-learn>=1.0.0
 xgboost>=1.5.0
 lightgbm>=3.3.0
+catboost>=1.0.0
 
-# MLOps
-mlflow>=1.20.0
+# MLOps - Updated to fix security vulnerabilities
+mlflow>=2.15.0
 dvc>=2.0.0
 
 # API
