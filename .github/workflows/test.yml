@@ -52,10 +52,11 @@ jobs:
           pytest tests/security -v
 
       - name: Run e2e and performance tests
+        timeout-minutes: 5
         run: |
           export PYTHONPATH=$GITHUB_WORKSPACE
           export SKIP_DOCKER_TESTS=1
-          pytest tests/e2e tests/performance -v || echo "Some e2e/performance tests failed"
+          pytest tests/e2e tests/performance -v --timeout=300 || echo "Some e2e/performance tests failed"
 
       - name: Generate test coverage report
         run: |

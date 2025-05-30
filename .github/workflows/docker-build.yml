@@ -18,25 +18,52 @@ jobs:
 
       - name: Test Docker image
         run: |
-          docker run -d -p 8000:8000 --name insurance-api-test insurance-prediction-api:test
+          # Start container with environment variable
+          docker run -d -p 8000:8000 --name insurance-api-test \
+            -e MODEL_PATH=/app/models/comparison/production/production_model.pkl \
+            insurance-prediction-api:test
 
-          # Wait for container to start (longer wait)
-          echo "Waiting for container to start..."
-          sleep 45
+          # Wait for container to be healthy with better error handling
+          echo "Waiting for container to be healthy..."
+          max_attempts=30
+          attempt=1
 
-          # Check container logs to diagnose issues
-          echo "Container logs:"
-          docker logs insurance-api-test
+          while [ $attempt -le $max_attempts ]; do
+            echo "Attempt $attempt/$max_attempts..."
 
-          # Check if container is still running
-          echo "Container status:"
-          docker ps | grep insurance-api-test
+            # Check if container is still running
+            if ! docker ps | grep -q insurance-api-test; then
+              echo "Container stopped unexpectedly. Logs:"
+              docker logs insurance-api-test
+              exit 1
+            fi
 
-          # Try to test health endpoint
-          curl -v http://localhost:8000/health || exit 1
+            # Try to access health endpoint
+            if curl -s -f http://localhost:8000/health > /dev/null 2>&1; then
+              echo "Container is healthy!"
+              break
+            fi
 
-          # Stop container
+            if [ $attempt -eq $max_attempts ]; then
+              echo "Container failed to become healthy. Logs:"
+              docker logs insurance-api-test
+              exit 1
+            fi
+
+            sleep 2
+            attempt=$((attempt + 1))
+          done
+
+          # Test endpoints
+          echo "Testing health endpoint..."
+          curl -f http://localhost:8000/health || exit 1
+
+          echo "Testing root endpoint..."
+          curl -f http://localhost:8000/ || exit 1
+
+          # Clean up
           docker stop insurance-api-test
+          docker rm insurance-api-test
 
       - name: Login to GitHub Container Registry
         if: github.event_name != 'pull_request'
@@ -53,5 +80,5 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/${{ github.repository }}/insurance-prediction-api:latest
-            ghcr.io/${{ github.repository }}/insurance-prediction-api:${{ github.sha }}
+            ghcr.io/${{ github.repository_owner }}/insurance-prediction-api:latest
+            ghcr.io/${{ github.repository_owner }}/insurance-prediction-api:${{ github.sha }}
