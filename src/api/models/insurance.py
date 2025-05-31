@@ -1,48 +1,46 @@
 # src/api/models/insurance.py
-from typing import List, Optional
-
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 
-class InsuranceFeatures(BaseModel):
-    """Input features for insurance prediction"""
+class PredictionRequest(BaseModel):
+    """Request model for insurance prediction"""
 
-    gender: str = Field(..., description="Customer gender (Male/Female)")
-    age: float = Field(..., description="Customer age")
-    has_driving_license: bool = Field(..., description="Whether customer has driving license")
-    region_id: int = Field(..., description="Region identifier")
-    vehicle_age: str = Field(..., description="Age category of the vehicle")
-    past_accident: Optional[str] = Field(
-        None, description="Whether customer had past accidents (Yes/No)"
-    )
-    annual_premium: float = Field(..., description="Annual insurance premium")
-    sales_channel_id: int = Field(..., description="Sales channel identifier")
-    days_since_created: int = Field(..., description="Days since record was created")
+    gender: str = Field(..., description="Gender of the person (Male/Female)")
+    age: float = Field(..., ge=18, le=100, description="Age of the person")
+    has_driving_license: bool = Field(..., description="Whether person has driving license")
+    region_id: int = Field(..., description="Region ID")
+    vehicle_age: str = Field(..., description="Age of vehicle")
+    past_accident: str = Field(..., description="Whether person had past accidents (Yes/No)")
+    annual_premium: float = Field(..., gt=0, description="Annual premium amount")
+    sales_channel_id: int = Field(..., description="Sales channel ID")
+    days_since_created: int = Field(..., ge=0, description="Days since policy created")
 
 
-class InsurancePrediction(BaseModel):
-    """Model prediction result"""
+class PredictionResponse(BaseModel):
+    """Response model for insurance prediction"""
 
-    prediction: int = Field(..., description="Prediction (0: No Purchase, 1: Purchase)")
-    probability: float = Field(..., description="Probability of purchase")
+    prediction: int = Field(..., description="Prediction result (0 or 1)")
+    probability: float = Field(..., ge=0, le=1, description="Probability of positive class")
 
 
 class BatchPredictionRequest(BaseModel):
-    """Batch prediction request"""
+    """Request model for batch predictions"""
 
-    records: List[InsuranceFeatures] = Field(..., description="List of records to predict")
+    records: list[PredictionRequest] = Field(..., description="List of records to predict")
 
 
 class BatchPredictionResponse(BaseModel):
-    """Batch prediction response"""
+    """Response model for batch predictions"""
 
-    predictions: List[InsurancePrediction] = Field(..., description="Prediction results")
+    predictions: list[PredictionResponse] = Field(..., description="List of predictions")
 
 
 class ModelInfo(BaseModel):
     """Model information"""
 
+    model_config = ConfigDict(protected_namespaces=())  # Fix the warning
+
     model_type: str = Field(..., description="Type of model")
-    model_version: str = Field(..., description="Model version")
-    features: List[str] = Field(..., description="Features used by the model")
-    metrics: dict = Field(..., description="Model performance metrics")
+    model_version: str = Field(..., description="Version of model")
+    features: list[str] = Field(default_factory=list, description="List of features")
+    metrics: dict = Field(default_factory=dict, description="Model metrics")

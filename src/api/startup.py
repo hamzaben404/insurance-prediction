@@ -1,5 +1,5 @@
 """Startup tasks for the API"""
-import subprocess
+import subprocess  # nosec B404
 import sys
 from pathlib import Path
 
@@ -20,19 +20,24 @@ def download_production_model():
     # Try to download from GitHub releases
     logger.info("Downloading production model...")
     try:
-        result = subprocess.run(
-            [sys.executable, "scripts/download_model.py"], capture_output=True, text=True
+        result = subprocess.run(  # nosec B603
+            [sys.executable, "scripts/download_model.py"],
+            capture_output=True,
+            text=True,
+            check=False,
         )
         if result.returncode == 0:
             logger.info("Model downloaded successfully")
         else:
             logger.warning(f"Model download failed: {result.stderr}")
             # Create dummy model as fallback
-            subprocess.run([sys.executable, "scripts/create_dummy_model.py"])
+            subprocess.run(
+                [sys.executable, "scripts/create_dummy_model.py"], check=False
+            )  # nosec B603
     except Exception as e:
         logger.error(f"Error during model download: {e}")
         # Create dummy model as fallback
-        subprocess.run([sys.executable, "scripts/create_dummy_model.py"])
+        subprocess.run([sys.executable, "scripts/create_dummy_model.py"], check=False)  # nosec B603
 
 
 def run_startup_tasks():
