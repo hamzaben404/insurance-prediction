@@ -1,54 +1,32 @@
-# src/api/routers/health.py
+"""Health check endpoints"""
 from datetime import datetime
 
-import psutil
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter
 
-from src.api.dependencies import get_prediction_service
-from src.api.services.prediction_service import PredictionService
-
-router = APIRouter(
-    prefix="/health",
-    tags=["health"],
-    responses={404: {"description": "Not found"}},
-)
+router = APIRouter(tags=["health"])
 
 
-@router.get("")
-async def health():
-    """
-    Health check endpoint
-    """
-    return {
-        "status": "healthy",
-        "timestamp": datetime.now().isoformat(),
-    }
+@router.get("/health")
+@router.head("/health")  # Add HEAD method support
+async def health_check():
+    """Basic health check endpoint"""
+    return {"status": "healthy", "timestamp": datetime.utcnow().isoformat()}
 
 
-@router.get("/model")
-async def model_health(
-    prediction_service: PredictionService = Depends(get_prediction_service),
-):
-    """
-    Model health check
-    """
-    # Get model info
-    model_info = prediction_service.get_info()
+@router.get("/health/model")
+async def model_health():
+    """Check model health status"""
+    # Check if model is loaded
+    try:
+        from src.api.dependencies import get_prediction_service
 
-    return {
-        "status": "loaded",
-        "model_type": model_info.get("model_type", "unknown"),
-        "model_version": model_info.get("model_version", "unknown"),
-    }
+        service = get_prediction_service()
+        model_loaded = service.model is not None
 
-
-@router.get("/metrics")
-async def metrics():
-    """
-    System metrics endpoint
-    """
-    return {
-        "cpu_percent": psutil.cpu_percent(),
-        "memory_percent": psutil.virtual_memory().percent,
-        "disk_percent": psutil.disk_usage("/").percent,
-    }
+        return {
+            "status": "healthy" if model_loaded else "unhealthy",
+            "model_loaded": model_loaded,
+            "model_info": service.model_info if model_loaded else None,
+        }
+    except Exception as e:
+        return {"status": "unhealthy", "error": str(e)}
