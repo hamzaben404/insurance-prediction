@@ -1,0 +1,1061 @@
+.
+├── Dockerfile
+├── Makefile
+├── README.md
+├── __pycache__
+│   └── test_api_client.cpython-311-pytest-8.3.5.pyc
+├── config
+│   ├── __pycache__
+│   │   └── config.cpython-38.pyc
+│   ├── config.py
+│   └── environments
+│       ├── production.yml
+│       └── staging.yml
+├── coverage_report
+│   ├── class_index.html
+│   ├── coverage_html_cb_6fb7b396.js
+│   ├── favicon_32_cb_58284776.png
+│   ├── function_index.html
+│   ├── index.html
+│   ├── keybd_closed_cb_ce680311.png
+│   ├── status.json
+│   ├── style_cb_8e611ae1.css
+│   ├── z_145eef247bfb46b6_run_training_pipeline_py.html
+│   ├── z_5d636249625465ac_health_py.html
+│   ├── z_5d636249625465ac_prediction_py.html
+│   ├── z_78398349a5b2265a_prediction_service_py.html
+│   ├── z_e3d496e5189f5be2_build_features_py.html
+│   ├── z_e5ccf62099f28249_data_split_py.html
+│   ├── z_e5ccf62099f28249_load_data_py.html
+│   ├── z_e5ccf62099f28249_preprocess_py.html
+│   ├── z_e5ccf62099f28249_validate_data_py.html
+│   ├── z_f0e24b7f04f99860_dependencies_py.html
+│   ├── z_f0e24b7f04f99860_main_py.html
+│   └── z_f1b38b22aeb65474_logging_py.html
+├── data
+│   ├── processed
+│   │   ├── test
+│   │   │   ├── data_info.json
+│   │   │   ├── processed_data.csv
+│   │   │   └── profile
+│   │   │       ├── data_profile.json
+│   │   │       └── visualizations
+│   │   │           ├── correlation_heatmap.png
+│   │   │           ├── count_gender.png
+│   │   │           ├── count_past_accident.png
+│   │   │           ├── count_vehicle_age.png
+│   │   │           ├── dist_age.png
+│   │   │           ├── dist_annual_premium.png
+│   │   │           ├── dist_days_since_created.png
+│   │   │           ├── dist_has_driving_license.png
+│   │   │           ├── dist_id.png
+│   │   │           ├── dist_region_id.png
+│   │   │           ├── dist_result.png
+│   │   │           ├── dist_sales_channel_id.png
+│   │   │           ├── dist_switch.png
+│   │   │           ├── missing_values_heatmap.png
+│   │   │           ├── target_by_age.png
+│   │   │           ├── target_by_annual_premium.png
+│   │   │           ├── target_by_days_since_created.png
+│   │   │           ├── target_by_has_driving_license.png
+│   │   │           ├── target_by_id.png
+│   │   │           ├── target_by_region_id.png
+│   │   │           ├── target_by_sales_channel_id.png
+│   │   │           ├── target_by_switch.png
+│   │   │           └── target_distribution.png
+│   │   ├── test_output
+│   │   │   └── featured_data.csv
+│   │   └── train
+│   │       ├── X_test.csv
+│   │       ├── X_train.csv
+│   │       ├── X_val.csv
+│   │       ├── data_info.json
+│   │       ├── processed_data.csv
+│   │       ├── profile
+│   │       │   ├── data_profile.json
+│   │       │   └── visualizations
+│   │       │       ├── correlation_heatmap.png
+│   │       │       ├── count_gender.png
+│   │       │       ├── count_past_accident.png
+│   │       │       ├── count_vehicle_age.png
+│   │       │       ├── dist_age.png
+│   │       │       ├── dist_annual_premium.png
+│   │       │       ├── dist_days_since_created.png
+│   │       │       ├── dist_has_driving_license.png
+│   │       │       ├── dist_id.png
+│   │       │       ├── dist_region_id.png
+│   │       │       ├── dist_result.png
+│   │       │       ├── dist_sales_channel_id.png
+│   │       │       ├── dist_switch.png
+│   │       │       ├── missing_values_heatmap.png
+│   │       │       ├── target_by_age.png
+│   │       │       ├── target_by_annual_premium.png
+│   │       │       ├── target_by_days_since_created.png
+│   │       │       ├── target_by_has_driving_license.png
+│   │       │       ├── target_by_id.png
+│   │       │       ├── target_by_region_id.png
+│   │       │       ├── target_by_sales_channel_id.png
+│   │       │       ├── target_by_switch.png
+│   │       │       └── target_distribution.png
+│   │       ├── y_test.csv
+│   │       ├── y_train.csv
+│   │       └── y_val.csv
+│   ├── raw
+│   │   ├── test.csv
+│   │   └── train.csv
+│   └── raw.dvc
+├── data_quality_check.py
+├── docker-compose.yml
+├── docs
+│   ├── ci_documentation.md
+│   └── features
+│       └── feature_documentation.md
+├── dvc.yaml
+├── fill_feature_documentation.py
+├── fix_formatting.sh
+├── mlruns
+│   ├── 0
+│   │   ├── 028579414cfa49ea9d28a78c45492d54
+│   │   │   ├── artifacts
+│   │   │   │   ├── classification_report.txt
+│   │   │   │   ├── confusion_matrix.png
+│   │   │   │   ├── feature_importance.csv
+│   │   │   │   ├── feature_importance.png
+│   │   │   │   ├── model
+│   │   │   │   │   ├── MLmodel
+│   │   │   │   │   ├── conda.yaml
+│   │   │   │   │   ├── model.pkl
+│   │   │   │   │   ├── python_env.yaml
+│   │   │   │   │   └── requirements.txt
+│   │   │   │   ├── precision_recall_curve.png
+│   │   │   │   ├── roc_curve.png
+│   │   │   │   ├── threshold_evaluation.csv
+│   │   │   │   └── threshold_evaluation.png
+│   │   │   ├── meta.yaml
+│   │   │   ├── metrics
+│   │   │   │   ├── accuracy
+│   │   │   │   ├── cv_accuracy_mean
+│   │   │   │   ├── cv_accuracy_std
+│   │   │   │   ├── cv_f1_mean
+│   │   │   │   ├── cv_f1_std
+│   │   │   │   ├── cv_precision_mean
+│   │   │   │   ├── cv_precision_std
+│   │   │   │   ├── cv_recall_mean
+│   │   │   │   ├── cv_recall_std
+│   │   │   │   ├── cv_roc_auc_mean
+│   │   │   │   ├── cv_roc_auc_std
+│   │   │   │   ├── f1
+│   │   │   │   ├── fold_1_accuracy
+│   │   │   │   ├── fold_1_f1
+│   │   │   │   ├── fold_1_precision
+│   │   │   │   ├── fold_1_recall
+│   │   │   │   ├── fold_1_roc_auc
+│   │   │   │   ├── fold_2_accuracy
+│   │   │   │   ├── fold_2_f1
+│   │   │   │   ├── fold_2_precision
+│   │   │   │   ├── fold_2_recall
+│   │   │   │   ├── fold_2_roc_auc
+│   │   │   │   ├── fold_3_accuracy
+│   │   │   │   ├── fold_3_f1
+│   │   │   │   ├── fold_3_precision
+│   │   │   │   ├── fold_3_recall
+│   │   │   │   ├── fold_3_roc_auc
+│   │   │   │   ├── fold_4_accuracy
+│   │   │   │   ├── fold_4_f1
+│   │   │   │   ├── fold_4_precision
+│   │   │   │   ├── fold_4_recall
+│   │   │   │   ├── fold_4_roc_auc
+│   │   │   │   ├── fold_5_accuracy
+│   │   │   │   ├── fold_5_f1
+│   │   │   │   ├── fold_5_precision
+│   │   │   │   ├── fold_5_recall
+│   │   │   │   ├── fold_5_roc_auc
+│   │   │   │   ├── precision
+│   │   │   │   ├── recall
+│   │   │   │   ├── roc_auc
+│   │   │   │   ├── val_accuracy
+│   │   │   │   ├── val_f1
+│   │   │   │   ├── val_precision
+│   │   │   │   ├── val_recall
+│   │   │   │   └── val_roc_auc
+│   │   │   ├── params
+│   │   │   └── tags
+│   │   │       ├── data.target
+│   │   │       ├── mlflow.log-model.history
+│   │   │       ├── mlflow.runName
+│   │   │       ├── mlflow.source.name
+│   │   │       ├── mlflow.source.type
+│   │   │       └── mlflow.user
+│   │   ├── 286758f0a8c0415fb23426a79b148cf3
+│   │   │   ├── artifacts
+│   │   │   ├── meta.yaml
+│   │   │   ├── metrics
+│   │   │   ├── params
+│   │   │   └── tags
+│   │   │       ├── data.target
+│   │   │       ├── mlflow.runName
+│   │   │       ├── mlflow.source.name
+│   │   │       ├── mlflow.source.type
+│   │   │       └── mlflow.user
+│   │   ├── 31b8036382984a2295c6b718143cf3e0
+│   │   │   ├── artifacts
+│   │   │   │   ├── classification_report.txt
+│   │   │   │   ├── confusion_matrix.png
+│   │   │   │   ├── feature_importance.csv
+│   │   │   │   ├── feature_importance.png
+│   │   │   │   ├── model
+│   │   │   │   │   ├── MLmodel
+│   │   │   │   │   ├── conda.yaml
+│   │   │   │   │   ├── model.pkl
+│   │   │   │   │   ├── python_env.yaml
+│   │   │   │   │   └── requirements.txt
+│   │   │   │   ├── precision_recall_curve.png
+│   │   │   │   ├── roc_curve.png
+│   │   │   │   ├── threshold_evaluation.csv
+│   │   │   │   └── threshold_evaluation.png
+│   │   │   ├── meta.yaml
+│   │   │   ├── metrics
+│   │   │   │   ├── accuracy
+│   │   │   │   ├── cv_accuracy_mean
+│   │   │   │   ├── cv_accuracy_std
+│   │   │   │   ├── cv_f1_mean
+│   │   │   │   ├── cv_f1_std
+│   │   │   │   ├── cv_precision_mean
+│   │   │   │   ├── cv_precision_std
+│   │   │   │   ├── cv_recall_mean
+│   │   │   │   ├── cv_recall_std
+│   │   │   │   ├── cv_roc_auc_mean
+│   │   │   │   ├── cv_roc_auc_std
+│   │   │   │   ├── f1
+│   │   │   │   ├── fold_1_accuracy
+│   │   │   │   ├── fold_1_f1
+│   │   │   │   ├── fold_1_precision
+│   │   │   │   ├── fold_1_recall
+│   │   │   │   ├── fold_1_roc_auc
+│   │   │   │   ├── fold_2_accuracy
+│   │   │   │   ├── fold_2_f1
+│   │   │   │   ├── fold_2_precision
+│   │   │   │   ├── fold_2_recall
+│   │   │   │   ├── fold_2_roc_auc
+│   │   │   │   ├── fold_3_accuracy
+│   │   │   │   ├── fold_3_f1
+│   │   │   │   ├── fold_3_precision
+│   │   │   │   ├── fold_3_recall
+│   │   │   │   ├── fold_3_roc_auc
+│   │   │   │   ├── fold_4_accuracy
+│   │   │   │   ├── fold_4_f1
+│   │   │   │   ├── fold_4_precision
+│   │   │   │   ├── fold_4_recall
+│   │   │   │   ├── fold_4_roc_auc
+│   │   │   │   ├── fold_5_accuracy
+│   │   │   │   ├── fold_5_f1
+│   │   │   │   ├── fold_5_precision
+│   │   │   │   ├── fold_5_recall
+│   │   │   │   ├── fold_5_roc_auc
+│   │   │   │   ├── precision
+│   │   │   │   ├── recall
+│   │   │   │   ├── roc_auc
+│   │   │   │   ├── val_accuracy
+│   │   │   │   ├── val_f1
+│   │   │   │   ├── val_precision
+│   │   │   │   ├── val_recall
+│   │   │   │   └── val_roc_auc
+│   │   │   ├── params
+│   │   │   └── tags
+│   │   │       ├── data.target
+│   │   │       ├── mlflow.log-model.history
+│   │   │       ├── mlflow.runName
+│   │   │       ├── mlflow.source.name
+│   │   │       ├── mlflow.source.type
+│   │   │       └── mlflow.user
+│   │   ├── 3b3169ee1bf24d47bef0160e049be400
+│   │   │   ├── artifacts
+│   │   │   │   ├── classification_report.txt
+│   │   │   │   ├── confusion_matrix.png
+│   │   │   │   ├── feature_importance.csv
+│   │   │   │   ├── feature_importance.png
+│   │   │   │   ├── model
+│   │   │   │   │   ├── MLmodel
+│   │   │   │   │   ├── conda.yaml
+│   │   │   │   │   ├── model.pkl
+│   │   │   │   │   ├── python_env.yaml
+│   │   │   │   │   └── requirements.txt
+│   │   │   │   ├── precision_recall_curve.png
+│   │   │   │   ├── roc_curve.png
+│   │   │   │   ├── threshold_evaluation.csv
+│   │   │   │   └── threshold_evaluation.png
+│   │   │   ├── meta.yaml
+│   │   │   ├── metrics
+│   │   │   │   ├── accuracy
+│   │   │   │   ├── cv_accuracy_mean
+│   │   │   │   ├── cv_accuracy_std
+│   │   │   │   ├── cv_f1_mean
+│   │   │   │   ├── cv_f1_std
+│   │   │   │   ├── cv_precision_mean
+│   │   │   │   ├── cv_precision_std
+│   │   │   │   ├── cv_recall_mean
+│   │   │   │   ├── cv_recall_std
+│   │   │   │   ├── cv_roc_auc_mean
+│   │   │   │   ├── cv_roc_auc_std
+│   │   │   │   ├── f1
+│   │   │   │   ├── fold_1_accuracy
+│   │   │   │   ├── fold_1_f1
+│   │   │   │   ├── fold_1_precision
+│   │   │   │   ├── fold_1_recall
+│   │   │   │   ├── fold_1_roc_auc
+│   │   │   │   ├── fold_2_accuracy
+│   │   │   │   ├── fold_2_f1
+│   │   │   │   ├── fold_2_precision
+│   │   │   │   ├── fold_2_recall
+│   │   │   │   ├── fold_2_roc_auc
+│   │   │   │   ├── fold_3_accuracy
+│   │   │   │   ├── fold_3_f1
+│   │   │   │   ├── fold_3_precision
+│   │   │   │   ├── fold_3_recall
+│   │   │   │   ├── fold_3_roc_auc
+│   │   │   │   ├── fold_4_accuracy
+│   │   │   │   ├── fold_4_f1
+│   │   │   │   ├── fold_4_precision
+│   │   │   │   ├── fold_4_recall
+│   │   │   │   ├── fold_4_roc_auc
+│   │   │   │   ├── fold_5_accuracy
+│   │   │   │   ├── fold_5_f1
+│   │   │   │   ├── fold_5_precision
+│   │   │   │   ├── fold_5_recall
+│   │   │   │   ├── fold_5_roc_auc
+│   │   │   │   ├── precision
+│   │   │   │   ├── recall
+│   │   │   │   ├── roc_auc
+│   │   │   │   ├── val_accuracy
+│   │   │   │   ├── val_f1
+│   │   │   │   ├── val_precision
+│   │   │   │   ├── val_recall
+│   │   │   │   └── val_roc_auc
+│   │   │   ├── params
+│   │   │   └── tags
+│   │   │       ├── data.target
+│   │   │       ├── mlflow.log-model.history
+│   │   │       ├── mlflow.runName
+│   │   │       ├── mlflow.source.name
+│   │   │       ├── mlflow.source.type
+│   │   │       └── mlflow.user
+│   │   ├── 3f14b2b392714d179e33daec3a887fd6
+│   │   │   ├── artifacts
+│   │   │   ├── meta.yaml
+│   │   │   ├── metrics
+│   │   │   ├── params
+│   │   │   └── tags
+│   │   │       ├── data.target
+│   │   │       ├── mlflow.runName
+│   │   │       ├── mlflow.source.name
+│   │   │       ├── mlflow.source.type
+│   │   │       └── mlflow.user
+│   │   ├── 4883fa3705b64d089b33b2ca7b93a39e
+│   │   │   ├── artifacts
+│   │   │   ├── meta.yaml
+│   │   │   ├── metrics
+│   │   │   ├── params
+│   │   │   └── tags
+│   │   │       ├── data.target
+│   │   │       ├── mlflow.runName
+│   │   │       ├── mlflow.source.name
+│   │   │       ├── mlflow.source.type
+│   │   │       └── mlflow.user
+│   │   ├── 51b4c8722a054a5495dd075edf22e21a
+│   │   │   ├── artifacts
+│   │   │   ├── meta.yaml
+│   │   │   ├── metrics
+│   │   │   ├── params
+│   │   │   └── tags
+│   │   │       ├── data.target
+│   │   │       ├── mlflow.runName
+│   │   │       ├── mlflow.source.name
+│   │   │       ├── mlflow.source.type
+│   │   │       └── mlflow.user
+│   │   ├── 52f71020c5824275a8d0c4b1713b4e06
+│   │   │   ├── artifacts
+│   │   │   ├── meta.yaml
+│   │   │   ├── metrics
+│   │   │   │   └── test_metric
+│   │   │   ├── params
+│   │   │   │   └── test_param
+│   │   │   └── tags
+│   │   │       ├── mlflow.runName
+│   │   │       ├── mlflow.source.name
+│   │   │       ├── mlflow.source.type
+│   │   │       └── mlflow.user
+│   │   ├── 63135457237a45688a07e1605c665620
+│   │   │   ├── artifacts
+│   │   │   ├── meta.yaml
+│   │   │   ├── metrics
+│   │   │   ├── params
+│   │   │   └── tags
+│   │   │       ├── data.target
+│   │   │       ├── mlflow.runName
+│   │   │       ├── mlflow.source.name
+│   │   │       ├── mlflow.source.type
+│   │   │       └── mlflow.user
+│   │   ├── 70c2608a993947aeaf6f400897ee9634
+│   │   │   ├── artifacts
+│   │   │   ├── meta.yaml
+│   │   │   ├── metrics
+│   │   │   ├── params
+│   │   │   └── tags
+│   │   │       ├── data.target
+│   │   │       ├── mlflow.runName
+│   │   │       ├── mlflow.source.name
+│   │   │       ├── mlflow.source.type
+│   │   │       └── mlflow.user
+│   │   ├── 716cfa86723f422589489ea7a1308d8e
+│   │   │   ├── artifacts
+│   │   │   ├── meta.yaml
+│   │   │   ├── metrics
+│   │   │   ├── params
+│   │   │   └── tags
+│   │   │       ├── data.target
+│   │   │       ├── mlflow.runName
+│   │   │       ├── mlflow.source.name
+│   │   │       ├── mlflow.source.type
+│   │   │       └── mlflow.user
+│   │   ├── 79397d5fdb03463a9844c6aadf1640dd
+│   │   │   ├── artifacts
+│   │   │   │   ├── classification_report.txt
+│   │   │   │   ├── confusion_matrix.png
+│   │   │   │   ├── feature_importance.csv
+│   │   │   │   ├── feature_importance.png
+│   │   │   │   ├── model
+│   │   │   │   │   ├── MLmodel
+│   │   │   │   │   ├── conda.yaml
+│   │   │   │   │   ├── model.pkl
+│   │   │   │   │   ├── python_env.yaml
+│   │   │   │   │   └── requirements.txt
+│   │   │   │   ├── precision_recall_curve.png
+│   │   │   │   ├── roc_curve.png
+│   │   │   │   ├── threshold_evaluation.csv
+│   │   │   │   └── threshold_evaluation.png
+│   │   │   ├── meta.yaml
+│   │   │   ├── metrics
+│   │   │   │   ├── accuracy
+│   │   │   │   ├── cv_accuracy_mean
+│   │   │   │   ├── cv_accuracy_std
+│   │   │   │   ├── cv_f1_mean
+│   │   │   │   ├── cv_f1_std
+│   │   │   │   ├── cv_precision_mean
+│   │   │   │   ├── cv_precision_std
+│   │   │   │   ├── cv_recall_mean
+│   │   │   │   ├── cv_recall_std
+│   │   │   │   ├── cv_roc_auc_mean
+│   │   │   │   ├── cv_roc_auc_std
+│   │   │   │   ├── f1
+│   │   │   │   ├── fold_1_accuracy
+│   │   │   │   ├── fold_1_f1
+│   │   │   │   ├── fold_1_precision
+│   │   │   │   ├── fold_1_recall
+│   │   │   │   ├── fold_1_roc_auc
+│   │   │   │   ├── fold_2_accuracy
+│   │   │   │   ├── fold_2_f1
+│   │   │   │   ├── fold_2_precision
+│   │   │   │   ├── fold_2_recall
+│   │   │   │   ├── fold_2_roc_auc
+│   │   │   │   ├── fold_3_accuracy
+│   │   │   │   ├── fold_3_f1
+│   │   │   │   ├── fold_3_precision
+│   │   │   │   ├── fold_3_recall
+│   │   │   │   ├── fold_3_roc_auc
+│   │   │   │   ├── fold_4_accuracy
+│   │   │   │   ├── fold_4_f1
+│   │   │   │   ├── fold_4_precision
+│   │   │   │   ├── fold_4_recall
+│   │   │   │   ├── fold_4_roc_auc
+│   │   │   │   ├── fold_5_accuracy
+│   │   │   │   ├── fold_5_f1
+│   │   │   │   ├── fold_5_precision
+│   │   │   │   ├── fold_5_recall
+│   │   │   │   ├── fold_5_roc_auc
+│   │   │   │   ├── precision
+│   │   │   │   ├── recall
+│   │   │   │   ├── roc_auc
+│   │   │   │   ├── val_accuracy
+│   │   │   │   ├── val_f1
+│   │   │   │   ├── val_precision
+│   │   │   │   ├── val_recall
+│   │   │   │   └── val_roc_auc
+│   │   │   ├── params
+│   │   │   └── tags
+│   │   │       ├── data.target
+│   │   │       ├── mlflow.log-model.history
+│   │   │       ├── mlflow.runName
+│   │   │       ├── mlflow.source.name
+│   │   │       ├── mlflow.source.type
+│   │   │       └── mlflow.user
+│   │   ├── 7c96537ed93345fb965871e49e9c358e
+│   │   │   ├── artifacts
+│   │   │   │   ├── classification_report.txt
+│   │   │   │   ├── confusion_matrix.png
+│   │   │   │   ├── feature_importance.csv
+│   │   │   │   ├── feature_importance.png
+│   │   │   │   ├── model
+│   │   │   │   │   ├── MLmodel
+│   │   │   │   │   ├── conda.yaml
+│   │   │   │   │   ├── model.pkl
+│   │   │   │   │   ├── python_env.yaml
+│   │   │   │   │   └── requirements.txt
+│   │   │   │   ├── precision_recall_curve.png
+│   │   │   │   ├── roc_curve.png
+│   │   │   │   ├── threshold_evaluation.csv
+│   │   │   │   └── threshold_evaluation.png
+│   │   │   ├── meta.yaml
+│   │   │   ├── metrics
+│   │   │   │   ├── accuracy
+│   │   │   │   ├── cv_accuracy_mean
+│   │   │   │   ├── cv_accuracy_std
+│   │   │   │   ├── cv_f1_mean
+│   │   │   │   ├── cv_f1_std
+│   │   │   │   ├── cv_precision_mean
+│   │   │   │   ├── cv_precision_std
+│   │   │   │   ├── cv_recall_mean
+│   │   │   │   ├── cv_recall_std
+│   │   │   │   ├── cv_roc_auc_mean
+│   │   │   │   ├── cv_roc_auc_std
+│   │   │   │   ├── f1
+│   │   │   │   ├── fold_1_accuracy
+│   │   │   │   ├── fold_1_f1
+│   │   │   │   ├── fold_1_precision
+│   │   │   │   ├── fold_1_recall
+│   │   │   │   ├── fold_1_roc_auc
+│   │   │   │   ├── fold_2_accuracy
+│   │   │   │   ├── fold_2_f1
+│   │   │   │   ├── fold_2_precision
+│   │   │   │   ├── fold_2_recall
+│   │   │   │   ├── fold_2_roc_auc
+│   │   │   │   ├── fold_3_accuracy
+│   │   │   │   ├── fold_3_f1
+│   │   │   │   ├── fold_3_precision
+│   │   │   │   ├── fold_3_recall
+│   │   │   │   ├── fold_3_roc_auc
+│   │   │   │   ├── fold_4_accuracy
+│   │   │   │   ├── fold_4_f1
+│   │   │   │   ├── fold_4_precision
+│   │   │   │   ├── fold_4_recall
+│   │   │   │   ├── fold_4_roc_auc
+│   │   │   │   ├── fold_5_accuracy
+│   │   │   │   ├── fold_5_f1
+│   │   │   │   ├── fold_5_precision
+│   │   │   │   ├── fold_5_recall
+│   │   │   │   ├── fold_5_roc_auc
+│   │   │   │   ├── precision
+│   │   │   │   ├── recall
+│   │   │   │   ├── roc_auc
+│   │   │   │   ├── val_accuracy
+│   │   │   │   ├── val_f1
+│   │   │   │   ├── val_precision
+│   │   │   │   ├── val_recall
+│   │   │   │   └── val_roc_auc
+│   │   │   ├── params
+│   │   │   └── tags
+│   │   │       ├── data.target
+│   │   │       ├── mlflow.log-model.history
+│   │   │       ├── mlflow.runName
+│   │   │       ├── mlflow.source.name
+│   │   │       ├── mlflow.source.type
+│   │   │       └── mlflow.user
+│   │   ├── 7f50be103b084fecb99491287e48a757
+│   │   │   ├── artifacts
+│   │   │   │   ├── classification_report.txt
+│   │   │   │   ├── confusion_matrix.png
+│   │   │   │   ├── feature_importance.csv
+│   │   │   │   ├── feature_importance.png
+│   │   │   │   ├── model
+│   │   │   │   │   ├── MLmodel
+│   │   │   │   │   ├── conda.yaml
+│   │   │   │   │   ├── model.pkl
+│   │   │   │   │   ├── python_env.yaml
+│   │   │   │   │   └── requirements.txt
+│   │   │   │   ├── precision_recall_curve.png
+│   │   │   │   ├── roc_curve.png
+│   │   │   │   ├── threshold_evaluation.csv
+│   │   │   │   └── threshold_evaluation.png
+│   │   │   ├── meta.yaml
+│   │   │   ├── metrics
+│   │   │   │   ├── accuracy
+│   │   │   │   ├── cv_accuracy_mean
+│   │   │   │   ├── cv_accuracy_std
+│   │   │   │   ├── cv_f1_mean
+│   │   │   │   ├── cv_f1_std
+│   │   │   │   ├── cv_precision_mean
+│   │   │   │   ├── cv_precision_std
+│   │   │   │   ├── cv_recall_mean
+│   │   │   │   ├── cv_recall_std
+│   │   │   │   ├── cv_roc_auc_mean
+│   │   │   │   ├── cv_roc_auc_std
+│   │   │   │   ├── f1
+│   │   │   │   ├── fold_1_accuracy
+│   │   │   │   ├── fold_1_f1
+│   │   │   │   ├── fold_1_precision
+│   │   │   │   ├── fold_1_recall
+│   │   │   │   ├── fold_1_roc_auc
+│   │   │   │   ├── fold_2_accuracy
+│   │   │   │   ├── fold_2_f1
+│   │   │   │   ├── fold_2_precision
+│   │   │   │   ├── fold_2_recall
+│   │   │   │   ├── fold_2_roc_auc
+│   │   │   │   ├── fold_3_accuracy
+│   │   │   │   ├── fold_3_f1
+│   │   │   │   ├── fold_3_precision
+│   │   │   │   ├── fold_3_recall
+│   │   │   │   ├── fold_3_roc_auc
+│   │   │   │   ├── fold_4_accuracy
+│   │   │   │   ├── fold_4_f1
+│   │   │   │   ├── fold_4_precision
+│   │   │   │   ├── fold_4_recall
+│   │   │   │   ├── fold_4_roc_auc
+│   │   │   │   ├── fold_5_accuracy
+│   │   │   │   ├── fold_5_f1
+│   │   │   │   ├── fold_5_precision
+│   │   │   │   ├── fold_5_recall
+│   │   │   │   ├── fold_5_roc_auc
+│   │   │   │   ├── precision
+│   │   │   │   ├── recall
+│   │   │   │   ├── roc_auc
+│   │   │   │   ├── val_accuracy
+│   │   │   │   ├── val_f1
+│   │   │   │   ├── val_precision
+│   │   │   │   ├── val_recall
+│   │   │   │   └── val_roc_auc
+│   │   │   ├── params
+│   │   │   └── tags
+│   │   │       ├── data.target
+│   │   │       ├── mlflow.log-model.history
+│   │   │       ├── mlflow.runName
+│   │   │       ├── mlflow.source.name
+│   │   │       ├── mlflow.source.type
+│   │   │       └── mlflow.user
+│   │   ├── 908fb70563ba4156b8112658d4ba83ba
+│   │   │   ├── artifacts
+│   │   │   ├── meta.yaml
+│   │   │   ├── metrics
+│   │   │   ├── params
+│   │   │   └── tags
+│   │   │       ├── data.target
+│   │   │       ├── mlflow.runName
+│   │   │       ├── mlflow.source.name
+│   │   │       ├── mlflow.source.type
+│   │   │       └── mlflow.user
+│   │   ├── b8191da7e8824fff8633a1154a5a1715
+│   │   │   ├── artifacts
+│   │   │   ├── meta.yaml
+│   │   │   ├── metrics
+│   │   │   ├── params
+│   │   │   └── tags
+│   │   │       ├── data.target
+│   │   │       ├── mlflow.runName
+│   │   │       ├── mlflow.source.name
+│   │   │       ├── mlflow.source.type
+│   │   │       └── mlflow.user
+│   │   ├── cdf998936a314714ac72926fbb1122a5
+│   │   │   ├── artifacts
+│   │   │   ├── meta.yaml
+│   │   │   ├── metrics
+│   │   │   ├── params
+│   │   │   └── tags
+│   │   │       ├── data.target
+│   │   │       ├── mlflow.runName
+│   │   │       ├── mlflow.source.name
+│   │   │       ├── mlflow.source.type
+│   │   │       └── mlflow.user
+│   │   ├── d4395303269a49f6a6f12cfbd7d78868
+│   │   │   ├── artifacts
+│   │   │   ├── meta.yaml
+│   │   │   ├── metrics
+│   │   │   ├── params
+│   │   │   └── tags
+│   │   │       ├── data.target
+│   │   │       ├── mlflow.runName
+│   │   │       ├── mlflow.source.name
+│   │   │       ├── mlflow.source.type
+│   │   │       └── mlflow.user
+│   │   ├── e61c38da7d244b7dbfd0448341fd86b2
+│   │   │   ├── artifacts
+│   │   │   │   ├── classification_report.txt
+│   │   │   │   ├── confusion_matrix.png
+│   │   │   │   ├── feature_importance.csv
+│   │   │   │   ├── feature_importance.png
+│   │   │   │   ├── model
+│   │   │   │   │   ├── MLmodel
+│   │   │   │   │   ├── conda.yaml
+│   │   │   │   │   ├── model.pkl
+│   │   │   │   │   ├── python_env.yaml
+│   │   │   │   │   └── requirements.txt
+│   │   │   │   ├── precision_recall_curve.png
+│   │   │   │   ├── roc_curve.png
+│   │   │   │   ├── threshold_evaluation.csv
+│   │   │   │   └── threshold_evaluation.png
+│   │   │   ├── meta.yaml
+│   │   │   ├── metrics
+│   │   │   │   ├── accuracy
+│   │   │   │   ├── cv_accuracy_mean
+│   │   │   │   ├── cv_accuracy_std
+│   │   │   │   ├── cv_f1_mean
+│   │   │   │   ├── cv_f1_std
+│   │   │   │   ├── cv_precision_mean
+│   │   │   │   ├── cv_precision_std
+│   │   │   │   ├── cv_recall_mean
+│   │   │   │   ├── cv_recall_std
+│   │   │   │   ├── cv_roc_auc_mean
+│   │   │   │   ├── cv_roc_auc_std
+│   │   │   │   ├── f1
+│   │   │   │   ├── fold_1_accuracy
+│   │   │   │   ├── fold_1_f1
+│   │   │   │   ├── fold_1_precision
+│   │   │   │   ├── fold_1_recall
+│   │   │   │   ├── fold_1_roc_auc
+│   │   │   │   ├── fold_2_accuracy
+│   │   │   │   ├── fold_2_f1
+│   │   │   │   ├── fold_2_precision
+│   │   │   │   ├── fold_2_recall
+│   │   │   │   ├── fold_2_roc_auc
+│   │   │   │   ├── fold_3_accuracy
+│   │   │   │   ├── fold_3_f1
+│   │   │   │   ├── fold_3_precision
+│   │   │   │   ├── fold_3_recall
+│   │   │   │   ├── fold_3_roc_auc
+│   │   │   │   ├── fold_4_accuracy
+│   │   │   │   ├── fold_4_f1
+│   │   │   │   ├── fold_4_precision
+│   │   │   │   ├── fold_4_recall
+│   │   │   │   ├── fold_4_roc_auc
+│   │   │   │   ├── fold_5_accuracy
+│   │   │   │   ├── fold_5_f1
+│   │   │   │   ├── fold_5_precision
+│   │   │   │   ├── fold_5_recall
+│   │   │   │   ├── fold_5_roc_auc
+│   │   │   │   ├── precision
+│   │   │   │   ├── recall
+│   │   │   │   ├── roc_auc
+│   │   │   │   ├── val_accuracy
+│   │   │   │   ├── val_f1
+│   │   │   │   ├── val_precision
+│   │   │   │   ├── val_recall
+│   │   │   │   └── val_roc_auc
+│   │   │   ├── params
+│   │   │   └── tags
+│   │   │       ├── data.target
+│   │   │       ├── mlflow.log-model.history
+│   │   │       ├── mlflow.runName
+│   │   │       ├── mlflow.source.name
+│   │   │       ├── mlflow.source.type
+│   │   │       └── mlflow.user
+│   │   ├── e88e32c783aa498aab8f1e5439633f92
+│   │   │   ├── artifacts
+│   │   │   │   ├── classification_report.txt
+│   │   │   │   ├── confusion_matrix.png
+│   │   │   │   ├── feature_importance.csv
+│   │   │   │   ├── feature_importance.png
+│   │   │   │   ├── model
+│   │   │   │   │   ├── MLmodel
+│   │   │   │   │   ├── conda.yaml
+│   │   │   │   │   ├── model.pkl
+│   │   │   │   │   ├── python_env.yaml
+│   │   │   │   │   └── requirements.txt
+│   │   │   │   ├── precision_recall_curve.png
+│   │   │   │   ├── roc_curve.png
+│   │   │   │   ├── threshold_evaluation.csv
+│   │   │   │   └── threshold_evaluation.png
+│   │   │   ├── meta.yaml
+│   │   │   ├── metrics
+│   │   │   │   ├── accuracy
+│   │   │   │   ├── cv_accuracy_mean
+│   │   │   │   ├── cv_accuracy_std
+│   │   │   │   ├── cv_f1_mean
+│   │   │   │   ├── cv_f1_std
+│   │   │   │   ├── cv_precision_mean
+│   │   │   │   ├── cv_precision_std
+│   │   │   │   ├── cv_recall_mean
+│   │   │   │   ├── cv_recall_std
+│   │   │   │   ├── cv_roc_auc_mean
+│   │   │   │   ├── cv_roc_auc_std
+│   │   │   │   ├── f1
+│   │   │   │   ├── fold_1_accuracy
+│   │   │   │   ├── fold_1_f1
+│   │   │   │   ├── fold_1_precision
+│   │   │   │   ├── fold_1_recall
+│   │   │   │   ├── fold_1_roc_auc
+│   │   │   │   ├── fold_2_accuracy
+│   │   │   │   ├── fold_2_f1
+│   │   │   │   ├── fold_2_precision
+│   │   │   │   ├── fold_2_recall
+│   │   │   │   ├── fold_2_roc_auc
+│   │   │   │   ├── fold_3_accuracy
+│   │   │   │   ├── fold_3_f1
+│   │   │   │   ├── fold_3_precision
+│   │   │   │   ├── fold_3_recall
+│   │   │   │   ├── fold_3_roc_auc
+│   │   │   │   ├── fold_4_accuracy
+│   │   │   │   ├── fold_4_f1
+│   │   │   │   ├── fold_4_precision
+│   │   │   │   ├── fold_4_recall
+│   │   │   │   ├── fold_4_roc_auc
+│   │   │   │   ├── fold_5_accuracy
+│   │   │   │   ├── fold_5_f1
+│   │   │   │   ├── fold_5_precision
+│   │   │   │   ├── fold_5_recall
+│   │   │   │   ├── fold_5_roc_auc
+│   │   │   │   ├── precision
+│   │   │   │   ├── recall
+│   │   │   │   ├── roc_auc
+│   │   │   │   ├── val_accuracy
+│   │   │   │   ├── val_f1
+│   │   │   │   ├── val_precision
+│   │   │   │   ├── val_recall
+│   │   │   │   └── val_roc_auc
+│   │   │   ├── params
+│   │   │   └── tags
+│   │   │       ├── data.target
+│   │   │       ├── mlflow.log-model.history
+│   │   │       ├── mlflow.runName
+│   │   │       ├── mlflow.source.name
+│   │   │       ├── mlflow.source.type
+│   │   │       └── mlflow.user
+│   │   ├── f543b529904c4f5db02555705d1b0000
+│   │   │   ├── artifacts
+│   │   │   ├── meta.yaml
+│   │   │   ├── metrics
+│   │   │   ├── params
+│   │   │   └── tags
+│   │   │       ├── data.target
+│   │   │       ├── mlflow.runName
+│   │   │       ├── mlflow.source.name
+│   │   │       ├── mlflow.source.type
+│   │   │       └── mlflow.user
+│   │   └── meta.yaml
+│   ├── 435518123622197925
+│   │   └── meta.yaml
+│   ├── 673139230444553328
+│   │   └── meta.yaml
+│   ├── 769881235228258862
+│   │   └── meta.yaml
+│   └── models
+├── models
+│   └── comparison
+│       ├── gradient_boosting
+│       ├── lightgbm
+│       │   ├── interpretation
+│       │   │   ├── feature_importance.csv
+│       │   │   ├── feature_importance.png
+│       │   │   ├── shap_bar.png
+│       │   │   └── shap_summary.png
+│       │   ├── model.pkl
+│       │   ├── train_evaluation
+│       │   │   ├── confusion_matrix.png
+│       │   │   ├── precision_recall_curve.png
+│       │   │   └── roc_curve.png
+│       │   └── val_evaluation
+│       │       ├── classification_report.txt
+│       │       ├── confusion_matrix.png
+│       │       ├── precision_recall_curve.png
+│       │       ├── roc_curve.png
+│       │       ├── threshold_evaluation.csv
+│       │       └── threshold_evaluation.png
+│       ├── logistic_regression
+│       ├── model_comparison.csv
+│       ├── model_comparison.png
+│       ├── production
+│       │   ├── model_info.txt
+│       │   └── production_model.pkl
+│       ├── random_forest
+│       └── xgboost
+│           ├── interpretation
+│           │   ├── feature_importance.csv
+│           │   └── feature_importance.png
+│           ├── model.pkl
+│           ├── train_evaluation
+│           │   ├── confusion_matrix.png
+│           │   ├── precision_recall_curve.png
+│           │   └── roc_curve.png
+│           └── val_evaluation
+│               ├── classification_report.txt
+│               ├── confusion_matrix.png
+│               ├── precision_recall_curve.png
+│               ├── roc_curve.png
+│               ├── threshold_evaluation.csv
+│               └── threshold_evaluation.png
+├── notebooks
+├── pre_commit_fix.sh
+├── pyproject.toml
+├── pytest.ini
+├── railway.json
+├── reports
+│   └── data_quality
+│       ├── age_distribution.png
+│       ├── correlation_matrix.png
+│       ├── has_driving_license_distribution.png
+│       ├── id_distribution.png
+│       ├── region_id_distribution.png
+│       └── switch_distribution.png
+├── requirements-dev.txt
+├── requirements.txt
+├── run_phase3_pipeline.py
+├── run_security_scan.sh
+├── run_tests.py
+├── scripts
+│   ├── create_dummy_model.py
+│   ├── deploy.py
+│   ├── download_model.py
+│   ├── fixe_ci_issues.sh
+│   └── test_local_deployment.sh
+├── src
+│   ├── api
+│   │   ├── __pycache__
+│   │   │   ├── dependencies.cpython-311.pyc
+│   │   │   ├── dependencies.cpython-38.pyc
+│   │   │   ├── main.cpython-311.pyc
+│   │   │   ├── main.cpython-38.pyc
+│   │   │   ├── server.cpython-311.pyc
+│   │   │   └── server.cpython-38.pyc
+│   │   ├── dependencies.py
+│   │   ├── main.py
+│   │   ├── models
+│   │   │   ├── __pycache__
+│   │   │   │   ├── insurance.cpython-311.pyc
+│   │   │   │   └── insurance.cpython-38.pyc
+│   │   │   └── insurance.py
+│   │   ├── routers
+│   │   │   ├── __pycache__
+│   │   │   │   ├── health.cpython-311.pyc
+│   │   │   │   ├── health.cpython-38.pyc
+│   │   │   │   ├── prediction.cpython-311.pyc
+│   │   │   │   └── prediction.cpython-38.pyc
+│   │   │   ├── health.py
+│   │   │   ├── monitoring.py
+│   │   │   └── prediction.py
+│   │   ├── server.py
+│   │   ├── services
+│   │   │   ├── __pycache__
+│   │   │   │   ├── prediction_service.cpython-311.pyc
+│   │   │   │   └── prediction_service.cpython-38.pyc
+│   │   │   └── prediction_service.py
+│   │   └── startup.py
+│   ├── data
+│   │   ├── __pycache__
+│   │   │   ├── data_split.cpython-311.pyc
+│   │   │   ├── data_split.cpython-38.pyc
+│   │   │   ├── load_data.cpython-311.pyc
+│   │   │   ├── load_data.cpython-38.pyc
+│   │   │   ├── preprocess.cpython-311.pyc
+│   │   │   ├── preprocess.cpython-38.pyc
+│   │   │   ├── process_data.cpython-38.pyc
+│   │   │   ├── profile_data.cpython-38.pyc
+│   │   │   ├── validate_data.cpython-311.pyc
+│   │   │   └── validate_data.cpython-38.pyc
+│   │   ├── data_split.py
+│   │   ├── load_data.py
+│   │   ├── preprocess.py
+│   │   ├── process_data.py
+│   │   ├── profile_data.py
+│   │   └── validate_data.py
+│   ├── features
+│   │   ├── __pycache__
+│   │   │   ├── build_features.cpython-311.pyc
+│   │   │   └── build_features.cpython-38.pyc
+│   │   └── build_features.py
+│   ├── models
+│   │   ├── __pycache__
+│   │   │   ├── cross_validation.cpython-38.pyc
+│   │   │   ├── evaluation.cpython-38.pyc
+│   │   │   ├── hyperparameter_tuning.cpython-38.pyc
+│   │   │   ├── interpretation.cpython-38.pyc
+│   │   │   ├── mlflow_utils.cpython-310.pyc
+│   │   │   ├── mlflow_utils.cpython-38.pyc
+│   │   │   ├── model_factory.cpython-38.pyc
+│   │   │   ├── model_selection.cpython-38.pyc
+│   │   │   └── train_model.cpython-38.pyc
+│   │   ├── cross_validation.py
+│   │   ├── evaluation.py
+│   │   ├── hyperparameter_tuning.py
+│   │   ├── interpretation.py
+│   │   ├── mlflow_utils.py
+│   │   ├── model_factory.py
+│   │   ├── model_selection.py
+│   │   ├── train_model.py
+│   │   └── validate_model.py
+│   ├── monitoring
+│   ├── run_training_pipeline.py
+│   └── utils
+│       ├── __pycache__
+│       │   ├── logging.cpython-310.pyc
+│       │   ├── logging.cpython-311.pyc
+│       │   └── logging.cpython-38.pyc
+│       └── logging.py
+├── structure.txt
+├── test_api_client.py
+├── test_output
+│   └── model_test
+│       ├── interpretation
+│       │   ├── feature_importance.csv
+│       │   └── feature_importance.png
+│       ├── model.pkl
+│       ├── train_evaluation
+│       │   ├── confusion_matrix.png
+│       │   ├── precision_recall_curve.png
+│       │   └── roc_curve.png
+│       └── val_evaluation
+│           ├── classification_report.txt
+│           ├── confusion_matrix.png
+│           ├── precision_recall_curve.png
+│           ├── roc_curve.png
+│           ├── threshold_evaluation.csv
+│           └── threshold_evaluation.png
+└── tests
+    ├── __pycache__
+    │   ├── conftest.cpython-311-pytest-8.3.5.pyc
+    │   └── end_to_end_test.cpython-311-pytest-8.3.5.pyc
+    ├── conftest.py
+    ├── e2e
+    │   ├── __pycache__
+    │   │   ├── test_api_e2e.cpython-311-pytest-8.3.5.pyc
+    │   │   └── test_docker.cpython-311-pytest-8.3.5.pyc
+    │   ├── test_api_e2e.py
+    │   └── test_docker.py
+    ├── end_to_end_test.py
+    ├── functional
+    │   ├── __pycache__
+    │   │   └── test_api.cpython-311-pytest-8.3.5.pyc
+    │   └── test_api.py
+    ├── integration
+    │   ├── __pycache__
+    │   │   ├── test_api_data_integration.cpython-311-pytest-8.3.5.pyc
+    │   │   └── test_pipeline.cpython-311-pytest-8.3.5.pyc
+    │   └── test_pipeline.py
+    ├── performance
+    │   ├── __pycache__
+    │   │   └── test_api_performance.cpython-311-pytest-8.3.5.pyc
+    │   └── test_api_performance.py
+    ├── security
+    │   ├── __pycache__
+    │   │   └── test_api_security.cpython-311-pytest-8.3.5.pyc
+    │   └── test_api_security.py
+    ├── structure.txt
+    └── unit
+        ├── api
+        │   ├── __pycache__
+        │   │   ├── test_edge_cases.cpython-311-pytest-8.3.5.pyc
+        │   │   ├── test_health.cpython-311-pytest-8.3.5.pyc
+        │   │   ├── test_predict.cpython-311-pytest-8.3.5.pyc
+        │   │   └── test_prediction.cpython-311-pytest-8.3.5.pyc
+        │   ├── test_health.py
+        │   └── test_predict.py
+        ├── data
+        │   ├── __pycache__
+        │   │   ├── test_features.cpython-311-pytest-8.3.5.pyc
+        │   │   ├── test_preprocess.cpython-311-pytest-8.3.5.pyc
+        │   │   └── test_properties.cpython-311-pytest-8.3.5.pyc
+        │   └── test_preprocess.py
+        ├── features
+        │   ├── __pycache__
+        │   │   └── test_features.cpython-311-pytest-8.3.5.pyc
+        │   └── test_features.py
+        └── models
+            └── __pycache__
+                └── test_prediction_service.cpython-311-pytest-8.3.5.pyc
+
+199 directories, 860 files

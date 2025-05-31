@@ -8,7 +8,7 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from src.api.routers import health, prediction
+from src.api.routers import health, monitoring, prediction
 
 # Configure logging
 logging.basicConfig(
@@ -35,6 +35,7 @@ app.add_middleware(
 # Include routers
 app.include_router(prediction.router)
 app.include_router(health.router)
+app.include_router(monitoring.router)
 
 
 # Add middleware for request logging and timing
