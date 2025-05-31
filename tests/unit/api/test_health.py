@@ -12,7 +12,9 @@ def test_root_endpoint():
     """Test root endpoint"""
     response = client.get("/")
     assert response.status_code == 200
-    assert response.json()["message"] == "Insurance Prediction API"
+    # assert response.json()["message"] == "Insurance Prediction API" # OLD
+    assert response.json()["message"] == "Welcome to the Insurance Prediction API!"  # NEW
+    assert "version" in response.json()  # Good to check for other keys too
 
 
 def test_health_endpoint():

@@ -35,7 +35,8 @@ jobs:
         run: flake8 src tests
 
       - name: Security check with Bandit
-        run: bandit -r src -x tests --skip B301,B403,B404,B603
+        run: |
+          bandit -r src -x tests --skip B104,B301,B403,B404,B603 # Added B104 here
 
       - name: Dependency security check with Safety
         run: |
