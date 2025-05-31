@@ -10,6 +10,7 @@ catboost>=1.0.0
 # MLOps - Updated to fix security vulnerabilities
 mlflow>=2.15.0
 dvc>=2.0.0
+sentry-sdk[fastapi]
 
 # API
 fastapi>=0.70.0

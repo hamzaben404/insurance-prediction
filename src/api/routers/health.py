@@ -1,67 +1,76 @@
 # src/api/routers/health.py
 """Health check endpoints for the API"""
 
+import logging  # Import logging
 from datetime import datetime
 
-from fastapi import APIRouter, Depends  # Added Depends for potential future use with dependencies
+from fastapi import APIRouter, Depends
 
 # Assuming get_prediction_service is correctly located and importable
-# If src.api.dependencies might not be on PYTHONPATH in some test environments,
-# consider relative imports if appropriate or ensure PYTHONPATH is set.
 from src.api.dependencies import get_prediction_service
-from src.api.services.prediction_service import (  # Explicitly import for type hinting
-    PredictionService,
-)
+from src.api.services.prediction_service import PredictionService
 
-# It's good practice to handle potential import errors for dependencies if they are optional
-# or might not be available in all environments, though get_prediction_service seems core.
-
+logger = logging.getLogger(__name__)  # Define a logger for this module
 
 router = APIRouter(
-    tags=["Health Checks"],  # Standardized tag name
-    responses={404: {"description": "Not found"}},  # Default response for this router
+    # prefix="/health", # Consider adding a prefix here if not handled in main.py, but you handle paths fully below
+    tags=["Health Checks"],
+    responses={404: {"description": "Not found"}},
 )
 
 
 @router.get(
-    "/health",
+    "/health",  # Full path if no prefix on router include
     summary="Basic API Health Check",
     description="Returns the current operational status and timestamp of the API.",
 )
-@router.head("/health")  # Explicitly support HEAD method
+@router.head("/health")
 async def health_check():
     """
     Performs a basic health check of the API.
     Returns a status indicating if the API is operational.
     """
+    logger.debug("Basic health check requested.")
     return {"status": "healthy", "timestamp": datetime.utcnow().isoformat()}
 
 
 @router.get(
-    "/health/model",
+    "/health/model",  # Full path if no prefix on router include
     summary="Model Health Check",
     description="Checks if the prediction model is loaded and provides model information.",
 )
-@router.head("/health/model")  # Explicitly support HEAD method
-async def model_health(
-    service: PredictionService = Depends(get_prediction_service),
-):  # Use Depends for service
+@router.head("/health/model")
+async def model_health(service: PredictionService = Depends(get_prediction_service)):
     """
     Checks the health of the machine learning model.
     Indicates if the model is loaded and provides basic information about it.
     """
+    logger.debug("Model health check requested.")
     try:
-        model_loaded = service.is_model_loaded()  # Assuming PredictionService has such a method
-        model_info = service.get_model_info() if model_loaded else None  # Assuming method exists
+        # Assuming PredictionService has these methods:
+        model_loaded = service.is_model_loaded()
+        model_info = service.get_model_info() if model_loaded else None
+
+        if not model_loaded:
+            logger.warning("Model health check: Model is not loaded.")
 
         return {
             "status": "healthy" if model_loaded else "unhealthy",
             "model_loaded": model_loaded,
             "model_info": model_info,
         }
+    except AttributeError as e:
+        logger.error(
+            f"Model health check: PredictionService is missing a required method: {e}",
+            exc_info=True,
+        )
+        return {
+            "status": "unhealthy",
+            "model_loaded": False,
+            "error": f"PredictionService interface error: {str(e)}",
+        }
     except Exception as e:
-        # Log the exception here with a logger for better debugging
-        # logger.error(f"Error during model health check: {e}", exc_info=True)
+        logger.error(f"Error during model health check: {e}", exc_info=True)
         return {
             "status": "unhealthy",
             "model_loaded": False,
@@ -70,46 +79,41 @@ async def model_health(
 
 
 @router.get(
-    "/simple_status",
+    "/simple_status",  # Full path if no prefix on router include
     status_code=200,
     summary="Simple Liveness Check",
     description="A very lightweight endpoint for uptime monitoring services like UptimeRobot.",
 )
-@router.head("/simple_status", status_code=200)  # Explicitly support HEAD method
+@router.head("/simple_status", status_code=200)
 async def simple_status_check():
     """
     Provides a minimal '200 OK' response if the API is running.
     Ideal for frequent polling by external monitoring services.
     """
-    # For HEAD requests, FastAPI/Starlette automatically strips the response body.
-    # So, returning a body here is fine; it just won't be sent for HEAD.
+    logger.debug("Simple status check requested (for UptimeRobot).")
     return {"status": "ok_i_am_healthy"}
 
 
-# Example of how your PredictionService might look for the above to work smoothly:
-# class PredictionService:
-#     def __init__(self):
-#         self.model = None # Load your model here
-#         self.model_info = {} # Populate with model details
-#
-#     def load_model(self, model_path: str = "path/to/your/model.pkl"):
-#         # Actual model loading logic
-#         # self.model = joblib.load(model_path)
-#         # self.model_info = {"name": "InsurancePredictor", "version": "1.0"}
-#         self.model = "dummy_model" # Placeholder
-#         self.model_info = {"type": "LGBMClassifier", "version": "0.1.0_prod"} # Placeholder
-#
-#     def is_model_loaded(self) -> bool:
-#         return self.model is not None
-#
-#     def get_model_info(self) -> dict:
-#         return self.model_info if self.model else {}
-#
-# # And in dependencies.py
-# # from src.api.services.prediction_service import PredictionService
-# #
-# # prediction_service_instance = PredictionService()
-# # prediction_service_instance.load_model() # Load model on startup
-# #
-# # def get_prediction_service():
-# #     return prediction_service_instance
+# Test endpoint for Sentry - make sure to remove or disable this in true production
+@router.get(
+    "/sentry-debug",
+    summary="Sentry Debug Endpoint",
+    description="Raises a ZeroDivisionError to test Sentry error reporting. REMOVE IN PRODUCTION.",
+    include_in_schema=False,  # Hides it from OpenAPI docs
+)
+async def trigger_sentry_error():  # Renamed for clarity
+    """
+    Intentionally raises a ZeroDivisionError to test Sentry integration.
+    This endpoint should be removed or disabled in a production environment.
+    """
+    logger.info("Sentry debug endpoint triggered. Attempting to divide by zero.")
+    try:
+        1 / 0  # CORRECTED: Directly perform the operation that causes the error
+        return {"message": "This will not be reached"}  # Should not happen
+    except ZeroDivisionError as e:
+        logger.error("ZeroDivisionError successfully triggered for Sentry debug.", exc_info=True)
+        # Sentry should capture this automatically.
+        # Re-raise if you want FastAPI's default 500 handler to also process it,
+        # or let Sentry handle it and return a custom message if preferred.
+        # For testing, re-raising ensures it's treated as an unhandled server error.
+        raise e
