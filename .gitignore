@@ -33,6 +33,13 @@ data/raw/*
 data/processed/*
 !data/raw/.gitkeep
 !data/processed/.gitkeep
+!data/processed/train/profile/visualizations/target_distribution.png
+!data/processed/train/profile/visualizations/count_gender.png
+!data/processed/train/profile/visualizations/dist_age.png
+!data/processed/train/profile/visualizations/dist_annual_premium.png
+!data/processed/train/profile/visualizations/correlation_heatmap.png
+!models/comparison/lightgbm/interpretation/feature_importance.png
+!models/comparison/lightgbm/val_evaluation/roc_curve.png
 
 # Models
 models/*
