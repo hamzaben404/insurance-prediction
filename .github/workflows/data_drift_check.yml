@@ -1,0 +1,59 @@
+name: Data Drift Check
+
+on:
+  # Run this workflow automatically every Monday at 2:00 AM UTC
+  schedule:
+    - cron: '0 2 * * 1'
+
+  # Allows you to run this workflow manually from the Actions tab on GitHub
+  workflow_dispatch:
+
+jobs:
+  data_drift_detection:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10' # Use the same Python version as your project
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install dominate
+          pip install -r requirements.txt
+          pip install dvc
+
+      - name: Pull Data with DVC
+        # This step assumes your processed data is versioned with DVC.
+        # If the data is in Git, you can remove this step.
+        # If you need to generate it from raw data, use `dvc repro` instead of `dvc pull`.
+        run: |
+          dvc pull data/processed/train/processed_data.csv.dvc -f
+          dvc pull data/processed/test/processed_data.csv.dvc -f
+        # The '-f' flag forces the pull, which can be useful in CI.
+
+      - name: Run Data Drift Detection Script
+        id: drift_check
+        # We use 'continue-on-error: true' so the workflow continues to the next step
+        # even if the script fails (exits with 1). This allows us to upload the report.
+        continue-on-error: true
+        run: python src/monitoring/data_drift_detection.py
+
+      - name: Upload Drift Report as Artifact
+        # This step always runs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: data-drift-report
+          path: reports/data_drift/data_drift_report.html
+
+      - name: Check Script Exit Code and Fail Job if Drift was Detected
+        # This step fails the job if the drift detection script failed
+        if: steps.drift_check.outcome == 'failure'
+        run: |
+          echo "Data drift was detected. See the 'data-drift-report' artifact for details."
+          exit 1
