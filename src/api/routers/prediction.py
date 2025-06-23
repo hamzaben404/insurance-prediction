@@ -17,24 +17,29 @@ from src.api.models.insurance import (
 from src.api.services.prediction_service import PredictionService
 
 # --- Prediction Logger Setup ---
-# Create a dedicated directory for logs if it doesn't exist
+# This setup creates a dedicated logger for recording predictions.
+# It ensures the 'logs' directory exists and writes each prediction as a new line
+# in a JSON Lines file, which is excellent for structured logging.
+
 LOGS_DIR = "logs"
+PREDICTION_LOG_FILE = os.path.join(LOGS_DIR, "prediction_log.jsonl")
+
+# Create the directory if it doesn't exist
 os.makedirs(LOGS_DIR, exist_ok=True)
 
-# Create a specific logger for predictions that writes to a .jsonl file
+# Set up a specific logger for prediction events
 prediction_logger = logging.getLogger("prediction_logger")
 prediction_logger.setLevel(logging.INFO)
 
-# Avoid adding handlers multiple times if this module is reloaded
+# Avoid adding the same handler multiple times if the module is reloaded
 if not prediction_logger.handlers:
-    # Create a file handler which logs prediction records in JSON Lines format
-    handler = logging.FileHandler(os.path.join(LOGS_DIR, "prediction_log.jsonl"))
-    # The formatter just passes the message through, as we will format it as JSON in the code
-    handler.setFormatter(logging.Formatter("%(message)s"))
-    prediction_logger.addHandler(handler)
+    file_handler = logging.FileHandler(PREDICTION_LOG_FILE)
+    # The formatter ensures that only the raw message (our JSON string) is logged
+    file_handler.setFormatter(logging.Formatter("%(message)s"))
+    prediction_logger.addHandler(file_handler)
 # --- End Logger Setup ---
 
-# Standard application logger for general info/errors
+# Standard logger for general application messages (like request received/finished)
 logger = logging.getLogger(__name__)
 
 router = APIRouter(
@@ -53,11 +58,8 @@ async def predict(
 ):
     """
     Make a single prediction for insurance purchase propensity.
-
-    - **Input**: Features of a single customer.
-    - **Output**: Prediction (0 or 1) and probability.
     """
-    logger.info("Received single prediction request.")  # CORRECTED: Removed the 'f'
+    logger.info("Received single prediction request.")
     try:
         features = [request.model_dump()]
         results = prediction_service.predict(features=features)
@@ -71,7 +73,7 @@ async def predict(
 
         prediction_result = results[0]
 
-        # --- Log the prediction ---
+        # --- Log the Prediction Record ---
         try:
             log_record = {
                 "prediction_id": str(uuid.uuid4()),
@@ -80,14 +82,15 @@ async def predict(
                 "input_features": request.model_dump(),
                 "prediction_output": prediction_result,
             }
-            # Convert the dict to a JSON string and log it
+            # Convert the dictionary to a JSON string and write it to the log file
             prediction_logger.info(json.dumps(log_record))
         except Exception as log_e:
-            # If logging fails, we log the error but don't fail the request
+            # Important: If logging fails, we log an error to the main logger
+            # but we do NOT fail the API request. The user still gets their prediction.
             logger.error(f"Failed to write prediction to log: {log_e}", exc_info=True)
         # --- End Logging ---
 
-        logger.info("Single prediction successful.")  # CORRECTED: Removed the 'f'
+        logger.info("Single prediction successful.")
         return PredictionResponse(**prediction_result)
 
     except HTTPException:
@@ -107,11 +110,7 @@ async def predict_batch(
 ):
     """
     Make batch predictions for insurance purchase propensity.
-
-    - **Input**: A list of customer features.
-    - **Output**: A list of predictions and probabilities.
     """
-    # This line has a placeholder, so it's correct as an f-string. No change needed here.
     logger.info(f"Received batch prediction request with {len(request.records)} records.")
     if not request.records:
         raise HTTPException(
@@ -125,14 +124,14 @@ async def predict_batch(
 
         if len(results) != len(features):
             logger.error(
-                f"Mismatch in results from prediction service. Expected {len(features)}, got {len(results)}"
+                f"Mismatch in results from service. Expected {len(features)}, got {len(results)}"
             )
             raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 detail="Prediction service returned an inconsistent number of results.",
             )
 
-        # --- Log the predictions ---
+        # --- Log the Batch of Predictions ---
         try:
             timestamp = datetime.now(timezone.utc).isoformat()
             model_version = prediction_service.get_info().get("model_version", "unknown")
